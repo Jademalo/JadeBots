@@ -123,15 +123,15 @@ def genreTweet(gameFile, genreFile, genreExtraFile, altPostFreq=0, altGenreGameF
 
     # If the mode is set to standard, pick a string from the genre list
     if genreMode == 0:
-        genreText = pickString(genreList)
+        genreText = randomList(genreList)
     # Else, if the mode is set to extra, pick a string from the genre extra list
     elif genreMode == 1:
         altGenreExtraDebug = ("Yes")
-        genreText = pickString(genreExtraList)
+        genreText = randomList(genreExtraList)
     # Else, if the mode is set to game as genre, pick a string from the game list and add like
     elif genreMode == 2:
         altGenreGameDebug = ("Yes")
-        genreText = pickString(gameList)
+        genreText = randomList(gameList)
         # If the last character is a ".", remove it
         if genreText[-1:] == ("."):
             genreText = genreText[:-1]
