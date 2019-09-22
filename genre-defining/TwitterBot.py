@@ -1,4 +1,4 @@
-import random, tweepy
+import random, tweepy, keys
 
 #-------------------------------------------------------------------------------
 # Random frequency variables
@@ -13,10 +13,10 @@ altGenreGameFreq = 24
 # Twitter API Stuff
 
 # personal details
-consumer_key =""
-consumer_secret =""
-access_token =""
-access_token_secret =""
+consumer_key = keys.consumer_key
+consumer_secret = keys.consumer_secret
+access_token = keys.access_token
+access_token_secret = keys.access_token_secret
 
 # authentication of consumer key and secret
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
