@@ -121,6 +121,6 @@ tweetPostDebug = ("No")
 
 if tweetPost == 1:
     tweetPostDebug = ("Yes")
-#    api.update_status(status = finalTweet)                                     # Update the Status
+    api.update_status(status = finalTweet)                                     # Update the Status
 
 print("Post Tweet? -", tweetPostDebug)
