@@ -27,4 +27,4 @@ genreExtraFile = "genre-defining/genreExtra.txt"
 tweetText = tweetBot.genreTweet(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
 
 # Post the tweet to Twitter
-#tweetBot.postTweet(tweetText, account, postFreq)
+tweetBot.postTweet(tweetText, account, postFreq)
