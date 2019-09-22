@@ -7,20 +7,24 @@ import tweetBot
 #-------------------------------------------------------------------------------
 # Variables
 #-------------------------------------------------------------------------------
+account = "genreDefining"
 postFreq = 4
+
 altPostFreq = 12
 altGenreExtraFreq = 16
 altGenreGameFreq = 24
 
-account = "genreDefining"
+gameFile = "genre-defining/game.txt"
+genreFile = "genre-defining/genre.txt"
+genreExtraFile = "genre-defining/genreExtra.txt"
 
 
 #-------------------------------------------------------------------------------
-# Twitter API Stuff
+# Main
 #-------------------------------------------------------------------------------
-twitter = tweetBot.setTwitter(account)
 
+# Generate the tweet
+tweetText = tweetBot.genreTweet(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
 
-#-------------------------------------------------------------------------------
-# Twitter API Stuff
-#-------------------------------------------------------------------------------
+# Post the tweet to Twitter
+#tweetBot.postTweet(tweetText, account, postFreq)
