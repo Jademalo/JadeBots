@@ -1,0 +1,29 @@
+metroidvania
+racing game
+platformer
+roguelike
+roguelite
+dating sim
+shooter
+soulslike
+sports game
+walking simulator
+role playing game
+fighting game
+stealth game
+survival game
+JRPG
+simulation game
+flight simulator
+puzzle game
+cookie clicker
+rhythm game
+casual game
+sandbox game
+horror game
+strategy game
+adventure game
+action game
+educational game
+visual novel
+party game
