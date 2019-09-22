@@ -1,79 +1,107 @@
 import random, tweepy
 
+# Random frequency variables
 postFrequency = 1
-altFrequency = 10
+altFrequency = 8
+genreFrequency = 16
 
+
+# Twitter API Stuff
 # personal details
 consumer_key =""
 consumer_secret =""
 access_token =""
 access_token_secret =""
-
 # authentication of consumer key and secret
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-
 # authentication of access token and secret
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
 
-genreFile = open("genre.txt", "r")
+# Opening the file and turning the games/genres into lists
 gameFile = open("game.txt", "r")
-
-genreString = genreFile.read()
 gameString = gameFile.read()
-print(genreString)
-print(gameString)
-
-genreList = genreString.split("\n")
+#print("gameString =", gameString)
 gameList = gameString.split("\n")
-print(genreList)
-print(gameList)
+#print("gameList =", gameList)
 
-genreNumber =len(genreList)
+genreFile = open("genre.txt", "r")
+genreString = genreFile.read()
+#print("genreString =", genreString)
+genreList = genreString.split("\n")
+#print("genreList =", genreList)
+
+
+
+#Generating random values from the list
 gameNumber = len(gameList)
-print(genreNumber)
-print(gameNumber)
+#print("gameNumber =", gameNumber)
+
+gamePick = int(random.randint(2,gameNumber)) #Two since there is an extra entry appended on the list
+gamePick = gamePick - 2 #One for zero being the first, and another for the blank line at the end
+#print("gamePick =", gamePick)
 
 
-
-
-#tweetStart = int(random.random()*(len(poemString)-140))
-#workingTweet = poemString[tweetStart:tweetStart+tweetLength].split(" ")
+genreNumber = len(genreList)
+#print("genreNumber =", genreNumber)
 
 genrePick = int(random.randint(2,genreNumber)) #Two since there is an extra entry appended on the list
-gamePick = int(random.randint(2,gameNumber))
 genrePick = genrePick - 2 #One for zero being the first, and another for the blank line at the end
-gamePick = gamePick - 2
-print(genrePick)
-print(gamePick)
+#print("genrePick =", genrePick)
 
-genreText = genreList[genrePick]
+
+
+# Picking a word using those values
 gameText = gameList[gamePick]
-print(genreText)
-print(genreList)
+print("gameText =", gameText)
 
-#workingTweet = poemString[tweetStart:tweetStart+tweetLength].split(" ")
 
-altPost = int(random.randint(1,altFrequency))
-print("Alt format if = 1",)
-print(altPost)
+# If statement to create a genre from a game name
+altGenre = int(random.randint(1,genreFrequency))
+#print("altGenre =", altGenre)
 
-if altPost == 1:
-    workingTweet = ("What if ", gameText, " was a ", genreText, "?")
-    finalTweet = "".join(workingTweet)
-    print(finalTweet)
+if altGenre == 1:
+    altGenreDebug = ("Yes")
+    gamePickGenre = int(random.randint(2,gameNumber))
+    gamePickGenre = gamePickGenre - 2
+    gameTextGenre = gameList[gamePickGenre]
+    #print("gameTextGenre =", gameTextGenre)
+    workingGenre = (gameTextGenre, "like")
+    gamelikeGenre = "".join(workingGenre)
+    genreText = gamelikeGenre
 else:
-    workingTweet = ("Is ", gameText, " a ", genreText, "?")
-    finalTweet = "".join(workingTweet)
-    print(finalTweet)
+    altGenreDebug = ("No")
+    genreText = genreList[genrePick]
 
+print("Alternate Game as Genre? -", altGenreDebug)
+print("genreText =", genreText)
+
+
+# Logic to decide if alternate format
+altPost = int(random.randint(1,altFrequency))
+#print("altPost = ", altPost)
+
+# If statement to change the format of the question, then composite the final tweet
+if altPost == 1:
+    altPostDebug = ("Yes")
+    workingTweet = ("What if ", gameText, " was a ", genreText, "?")
+else:
+    altPostDebug = ("No")
+    workingTweet = ("Is ", gameText, " a ", genreText, "?")
+
+finalTweet = "".join(workingTweet)
+print("Alternate format? -", altPostDebug)
+print("finalTweet =", finalTweet)
 
 tweetPost = int(random.randint(1,postFrequency))
-print("Will Post (If = 1) =",)
-print(tweetPost)
+#print("tweetPost =", tweetPost)
 
 if tweetPost == 1:
-    # update the status
-    api.update_status(status = finalTweet)
+    tweetPostDebug = ("Yes")
+    api.update_status(status = finalTweet) #Update the Status
+else:
+    tweetPostDebug = ("No")
+
+print("Post Tweet? -", tweetPostDebug)
