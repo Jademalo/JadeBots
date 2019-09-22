@@ -1,4 +1,4 @@
-import random, twitter
+import random, twitter, keys
 
 poemFile = open("Ulysses.txt", "r")
 
@@ -39,10 +39,7 @@ workingTweet = workingTweet[:-1]
 finalTweet = " ".join(workingTweet)
 #print finalTweet
 
-api = twitter.Api(consumer_key='',
-                  consumer_secret='',
-                  access_token_key='',
-                  access_token_secret='')
+api = Keys.api
 
 if tweetPost == 15:
     status = api.PostUpdate(finalTweet)
