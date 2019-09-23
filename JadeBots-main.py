@@ -69,6 +69,9 @@ def postUlyssesEbooks():
 #-------------------------------------------------------------------------------
 # Main Functions
 #-------------------------------------------------------------------------------
+print("~Genre Defining~")
 postGenreDefining()
+print("\n~Romantics eBooks~")
 postRomanticsEbooks()
+print("\n~Ulysses eBooks")
 postUlyssesEbooks()
