@@ -45,7 +45,7 @@ def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30):
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
-    tweetBot.postGen(tweetText, account, postFreq)
+    tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
