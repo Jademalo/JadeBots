@@ -82,7 +82,7 @@ def postUlyssesEbooks():
 # Main Functions
 #-------------------------------------------------------------------------------
 
-verbose = true
+verbose = True
 
 
 print("~Genre Defining~")
