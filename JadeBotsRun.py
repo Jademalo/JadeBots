@@ -16,7 +16,7 @@ altGenreGameFreq = 24
 verbose = False
 
 print("~Genre Defining~")
-postGenreDefining(postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+JadeBots.postGenreDefining(postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
 
 
 # Romantics Ebooks
@@ -25,7 +25,7 @@ maxLength = 100
 print(maxLength)
 
 print("\n~Romantics eBooks~")
-postRomanticsEbooks(postFreq, maxLength)
+JadeBots.postRomanticsEbooks(postFreq, maxLength)
 
 
 # Ulysses Ebooks
@@ -34,4 +34,4 @@ maxLength = 120
 print(maxLength)
 
 print("\n~Ulysses eBooks~")
-postUlyssesEbooks(postFreq, maxLength)
+JadeBots.postUlyssesEbooks(postFreq, maxLength)
