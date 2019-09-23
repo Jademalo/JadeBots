@@ -20,7 +20,7 @@ JadeBots.postGenreDefining(postFreq, altPostFreq, altGenreExtraFreq, altGenreGam
 
 
 # Romantics Ebooks
-postFreq = 0
+postFreq = 15
 maxLength = 100
 
 print("\n~Romantics eBooks~")
@@ -28,7 +28,7 @@ JadeBots.postRomanticsEbooks(postFreq, maxLength)
 
 
 # Ulysses Ebooks
-postFreq = 0
+postFreq = 15
 maxLength = 120
 
 print("\n~Ulysses eBooks~")
