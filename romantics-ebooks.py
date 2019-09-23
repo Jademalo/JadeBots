@@ -22,4 +22,4 @@ tweetText = tweetBot.ebooksTweet(mainFile)
 print(tweetText)
 
 # Post the tweet to Twitter
-#tweetBot.postTweet(tweetText, account, postFreq)
+tweetBot.postTweet(tweetText, account, postFreq)
