@@ -7,7 +7,7 @@ import tweetBot
 #-------------------------------------------------------------------------------
 # Genre Defining
 #-------------------------------------------------------------------------------
-def postGenreDefining(verbose=0):
+def postGenreDefining(verbose=False):
 
     account = "genreDefining"
     #postFreq = 4
@@ -25,7 +25,7 @@ def postGenreDefining(verbose=0):
     tweetText, altGenreGameDebug, altGenreExtraDebug, gameText, genreText, altPostDebug = tweetBot.genreTweet(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
 
     # If the verbose variable is set to 1, then print extra spam
-    if verbose == 1:
+    if verbose == True:
         print("Alternate Game as Genre? -", altGenreGameDebug)
         print("Alternate Extra Genre? -", altGenreExtraDebug)
         print("gameText =", gameText)
@@ -47,7 +47,7 @@ def postRomanticsEbooks():
     account = "romanticsEbooks"
     #postFreq = 15
     postFreq = 0
-    maxLength = 130
+    maxLength = 100
 
     mainFile = "romantics-ebooks/RomanticsText.txt"
 
@@ -68,7 +68,7 @@ def postUlyssesEbooks():
     account = "ulyssesEbooks"
     #postFreq = 15
     postFreq = 0
-    maxLength = 200
+    maxLength = 120
 
     mainFile = "ulysses-ebooks/Ulysses.txt"
     # Generate the tweet
@@ -84,7 +84,7 @@ def postUlyssesEbooks():
 # Main Functions
 #-------------------------------------------------------------------------------
 
-verbose = True
+verbose = False
 
 
 print("~Genre Defining~")
