@@ -47,11 +47,12 @@ def postRomanticsEbooks():
     account = "romanticsEbooks"
     #postFreq = 15
     postFreq = 0
+    maxLength = 130
 
     mainFile = "romantics-ebooks/RomanticsText.txt"
 
     # Generate the tweet
-    tweetText = tweetBot.ebooksTweet(mainFile)
+    tweetText = tweetBot.ebooksTweet(mainFile, maxLength)
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
@@ -67,10 +68,11 @@ def postUlyssesEbooks():
     account = "ulyssesEbooks"
     #postFreq = 15
     postFreq = 0
+    maxLength = 200
 
     mainFile = "ulysses-ebooks/Ulysses.txt"
     # Generate the tweet
-    tweetText = tweetBot.ebooksTweet(mainFile)
+    tweetText = tweetBot.ebooksTweet(mainFile, maxLength)
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
