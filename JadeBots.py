@@ -7,16 +7,9 @@ import tweetBot
 #-------------------------------------------------------------------------------
 # Genre Defining
 #-------------------------------------------------------------------------------
-def postGenreDefining(verbose=False):
+def postGenreDefining(postFreq=4, altPostFreq=12, altGenreExtraFreq=16, altGenreGameFreq=24, verbose=False):
 
     account = "genreDefining"
-    #postFreq = 4
-    postFreq = 0
-
-    altPostFreq = 12
-    altGenreExtraFreq = 16
-    altGenreGameFreq = 24
-
     gameFile = "genre-defining/game.txt"
     genreFile = "genre-defining/genre.txt"
     genreExtraFile = "genre-defining/genreExtra.txt"
@@ -42,17 +35,13 @@ def postGenreDefining(verbose=False):
 #-------------------------------------------------------------------------------
 # Romantics eBooks
 #-------------------------------------------------------------------------------
-def postRomanticsEbooks():
+def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30):
 
     account = "romanticsEbooks"
-    #postFreq = 15
-    postFreq = 0
-    maxLength = 100
-
     mainFile = "romantics-ebooks/RomanticsText.txt"
 
     # Generate the tweet
-    tweetText = tweetBot.ebooksTweet(mainFile, maxLength)
+    tweetText = tweetBot.ebooksTweet(mainFile, maxLength, minLength)
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
@@ -63,35 +52,14 @@ def postRomanticsEbooks():
 #-------------------------------------------------------------------------------
 # Ulysses eBooks
 #-------------------------------------------------------------------------------
-def postUlyssesEbooks():
+def postUlyssesEbooks(postFreq=15, maxLength=120, minLength=30):
 
     account = "ulyssesEbooks"
-    #postFreq = 15
-    postFreq = 0
-    maxLength = 120
-
     mainFile = "ulysses-ebooks/Ulysses.txt"
+
     # Generate the tweet
-    tweetText = tweetBot.ebooksTweet(mainFile, maxLength)
+    tweetText = tweetBot.ebooksTweet(mainFile, maxLength, minLength)
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
     tweetBot.postTweet(tweetText, account, postFreq)
-
-
-
-#-------------------------------------------------------------------------------
-# Main Functions
-#-------------------------------------------------------------------------------
-
-verbose = False
-
-
-print("~Genre Defining~")
-postGenreDefining(verbose)
-
-print("\n~Romantics eBooks~")
-postRomanticsEbooks()
-
-print("\n~Ulysses eBooks~")
-postUlyssesEbooks()
