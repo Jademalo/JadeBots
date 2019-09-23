@@ -7,7 +7,7 @@ import tweetBot
 #-------------------------------------------------------------------------------
 # Genre Defining
 #-------------------------------------------------------------------------------
-def postGenreDefining():
+def postGenreDefining(verbose=0):
 
     account = "genreDefining"
     #postFreq = 4
@@ -22,8 +22,18 @@ def postGenreDefining():
     genreExtraFile = "genre-defining/genreExtra.txt"
 
     # Generate the tweet
-    tweetText = tweetBot.genreTweet(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
+    tweetText, altGenreGameDebug, altGenreExtraDebug, gameText, genreText, altPostDebug = tweetBot.genreTweet(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
+
+    # If the verbose variable is set to 1, then print extra spam
+    if verbose == 1:
+        print("Alternate Game as Genre? -", altGenreGameDebug)
+        print("Alternate Extra Genre? -", altGenreExtraDebug)
+        print("gameText =", gameText)
+        print("genreText =", genreText)
+        print("Alternate format? -", altPostDebug)
+    # Print the final tweet
     print(tweetText)
+
     # Post the tweet to Twitter
     tweetBot.postTweet(tweetText, account, postFreq)
 
@@ -42,6 +52,7 @@ def postRomanticsEbooks():
 
     # Generate the tweet
     tweetText = tweetBot.ebooksTweet(mainFile)
+    # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
     tweetBot.postTweet(tweetText, account, postFreq)
@@ -60,6 +71,7 @@ def postUlyssesEbooks():
     mainFile = "ulysses-ebooks/Ulysses.txt"
     # Generate the tweet
     tweetText = tweetBot.ebooksTweet(mainFile)
+    # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
     tweetBot.postTweet(tweetText, account, postFreq)
@@ -69,9 +81,15 @@ def postUlyssesEbooks():
 #-------------------------------------------------------------------------------
 # Main Functions
 #-------------------------------------------------------------------------------
+
+verbose = true
+
+
 print("~Genre Defining~")
-postGenreDefining()
+postGenreDefining(verbose)
+
 print("\n~Romantics eBooks~")
 postRomanticsEbooks()
-print("\n~Ulysses eBooks")
+
+print("\n~Ulysses eBooks~")
 postUlyssesEbooks()
