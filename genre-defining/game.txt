@@ -89,3 +89,27 @@ SimCity
 RollerCoaster Tycoon
 Team Fortress 2
 Mirror's Edge
+PlayerUnknown's Battlegrounds
+Paper Mario
+Pokemon GO
+Overwatch
+Duck Hunt
+Sonic Adventure
+Frogger
+Lemmings
+The Witcher 3: Wild Hunt
+Brain Age
+Final Fantasy VII
+Final Fantasy XIII
+BioShock
+World of Goo
+Madden NFL
+The Legend of Zelda: Majora's Mask
+LittleBigPlanet
+Baldur's Gate
+Icewind Dale
+Mass Effect
+Uncharted
+GoldenEye 007
+Tony Hawk's Pro Skater
+SoulCalibur

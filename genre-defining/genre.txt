@@ -27,3 +27,7 @@ action game
 educational game
 visual novel
 party game
+beat 'em up
+battle royale
+interactive movie
+competitive game

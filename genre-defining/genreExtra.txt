@@ -9,3 +9,7 @@ card game
 tower defense game
 pay to win game
 not a game
+text adventure
+art game
+exercise game
+violent video game
