@@ -113,3 +113,104 @@ Uncharted
 GoldenEye 007
 Tony Hawk's Pro Skater
 SoulCalibur
+Hollow Knight
+Shovel Knight
+Untitled Goose Game
+Braid
+Firewatch
+Darkest Dungeon
+Gorogoa
+Kerbal Space Program
+Hyper Light Drifter
+Limbo
+Infinifactory
+Stephen's Sausage Roll
+Toki Tori 2
+Undertale
+Papers, Please
+The Stanley Parable
+The Beginner's Guide
+Pyre
+Shenzhen I/O
+Q*bert
+Galaga
+Baldur's Gate
+Dig Dug
+Asteroids
+Battletoads
+Defender
+Centipede
+Donkey Kong
+Punch Out
+Dragon's Lair
+Dragon Quest
+Tempest
+Pin Ball
+Angry Birds
+Desert Bus
+Tetris 99
+Journey
+Kirby's Adventure
+Mario Bros.
+Chrono Trigger
+Marble Madness
+Kid Icarus
+Metal Slug
+Fatal Fury
+Psychonauts
+Miegakure
+Beat Saber
+Guitar Hero
+Wii Music
+Wii Fit
+Starcraft
+Dr. Mario
+F-Zero
+Megaman
+Fire Emblem
+Xenoblade Chronicals
+Star Fox
+Forza
+iRacing
+2048
+Overcooked
+Puyo Puyo
+Snake Pass
+Towerfall
+Ape Out
+Crypt of the Necrodancer
+Katamari Damacy
+Snipperclips
+Jackbox Party Pack
+Flappy Bird
+Diddy Kong Racing
+Ninja Gaiden
+Legend of Mana
+1 2 Switch
+JumpStart
+Clue Finders
+Project M
+Unreal
+Transistor
+Bastion
+Outer Wilds
+Grow Home
+Space Invaders
+Spelunky
+Return of the Obra Dinn
+Mario + Rabbids Kingdom Battle
+X-COM
+Rayman
+Snakebird
+Ori and the Blind Forest
+LA Noire
+Dead Space
+Event[0]
+Vanquish
+Downwell
+Fallout
+Fallout 76
+Batman: Arkham Asylum
+Nova-111
+The Swindle
+Luftrausers
