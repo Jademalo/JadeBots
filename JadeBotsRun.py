@@ -9,7 +9,7 @@ import JadeBots
 #-------------------------------------------------------------------------------
 
 #Genre Defining
-postFreq = 4
+postFreq = 24
 altPostFreq = 12
 altGenreExtraFreq = 16
 altGenreGameFreq = 24
