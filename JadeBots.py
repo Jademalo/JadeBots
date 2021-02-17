@@ -28,7 +28,7 @@ def postGenreDefining(postFreq=4, altPostFreq=12, altGenreExtraFreq=16, altGenre
     print(tweetText)
 
     # Post the tweet to Twitter
-    #tweetBot.postTweet(tweetText, account, postFreq)
+    tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
@@ -57,7 +57,7 @@ def postMarioVariants(postFreq=4, verbose=False):
     print(tweetText)
 
     # Post the tweet to Twitter
-    #tweetBot.postTweet(tweetText, account, postFreq)
+    tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
@@ -74,7 +74,7 @@ def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30):
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
-    #tweetBot.postTweet(tweetText, account, postFreq)
+    tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
@@ -91,4 +91,4 @@ def postUlyssesEbooks(postFreq=15, maxLength=120, minLength=30):
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
-    #tweetBot.postTweet(tweetText, account, postFreq)
+    tweetBot.postTweet(tweetText, account, postFreq)
