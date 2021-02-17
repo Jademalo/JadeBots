@@ -28,7 +28,36 @@ def postGenreDefining(postFreq=4, altPostFreq=12, altGenreExtraFreq=16, altGenre
     print(tweetText)
 
     # Post the tweet to Twitter
-    tweetBot.postTweet(tweetText, account, postFreq)
+    #tweetBot.postTweet(tweetText, account, postFreq)
+
+
+
+#-------------------------------------------------------------------------------
+# Super Mario Variants
+#-------------------------------------------------------------------------------
+def postMarioVariants(postFreq=4, verbose=False):
+
+    account = "marioVariants"
+    nameFile = "mario-variants/name.txt"
+    prefixFile = "mario-variants/prefix.txt"
+    suffixFile = "mario-variants/suffix.txt"
+
+    # Generate the tweet
+    tweetText, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.variantGen(nameFile, prefixFile, suffixFile)
+
+    # If the verbose variable is set to 1, then print extra spam
+    if verbose == True:
+        print("Extra Prefix? -", prefixExtraDebug)
+        print("Suffix? -", suffixDebug)
+        print("nameText =", nameText)
+        print("prefixText =", prefixText)
+        print("prefixExtraText =", prefixExtraText)
+        print("suffixText =", suffixText)
+    # Print the final tweet
+    print(tweetText)
+
+    # Post the tweet to Twitter
+    #tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
@@ -45,7 +74,7 @@ def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30):
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
-    tweetBot.postTweet(tweetText, account, postFreq)
+    #tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
@@ -62,4 +91,4 @@ def postUlyssesEbooks(postFreq=15, maxLength=120, minLength=30):
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
-    tweetBot.postTweet(tweetText, account, postFreq)
+    #tweetBot.postTweet(tweetText, account, postFreq)
