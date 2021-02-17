@@ -22,11 +22,13 @@ JadeBots.postGenreDefining(postFreq, altPostFreq, altGenreExtraFreq, altGenreGam
 
 #Mario Variants
 postFreq = 1
-verbose = True
-post = True
+extraPrefixPercent = 20
+suffixPercent = 5
+verbose = False
+post = False
 
 print("\n~Super Mario Variants~")
-JadeBots.postMarioVariants(postFreq, verbose, post)
+JadeBots.postMarioVariants(postFreq, extraPrefixPercent, suffixPercent, verbose, post)
 
 
 # Romantics Ebooks

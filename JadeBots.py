@@ -7,7 +7,7 @@ import tweetBot
 #-------------------------------------------------------------------------------
 # Genre Defining
 #-------------------------------------------------------------------------------
-def postGenreDefining(postFreq=4, altPostFreq=12, altGenreExtraFreq=16, altGenreGameFreq=24, verbose=False, post=False):
+def postGenreDefining(postFreq=4, post=False, altPostFreq=12, altGenreExtraFreq=16, altGenreGameFreq=24, verbose=False):
 
     account = "genreDefining"
     gameFile = "genre-defining/game.txt"
@@ -36,7 +36,7 @@ def postGenreDefining(postFreq=4, altPostFreq=12, altGenreExtraFreq=16, altGenre
 #-------------------------------------------------------------------------------
 # Super Mario Variants
 #-------------------------------------------------------------------------------
-def postMarioVariants(postFreq=4, verbose=False, post=False):
+def postMarioVariants(postFreq=4, post=False, extraPrefixPercent=10, suffixPercent=5, verbose=False):
 
     account = "marioVariants"
     nameFile = "mario-variants/name.txt"
@@ -44,7 +44,7 @@ def postMarioVariants(postFreq=4, verbose=False, post=False):
     suffixFile = "mario-variants/suffix.txt"
 
     # Generate the tweet
-    tweetText, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.variantGen(nameFile, prefixFile, suffixFile)
+    tweetText, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.variantGen(nameFile, prefixFile, suffixFile, extraPrefixPercent, suffixPercent)
 
     # If the verbose variable is set to 1, then print extra spam
     if verbose == True:
@@ -66,7 +66,7 @@ def postMarioVariants(postFreq=4, verbose=False, post=False):
 #-------------------------------------------------------------------------------
 # Romantics eBooks
 #-------------------------------------------------------------------------------
-def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30, post=False):
+def postRomanticsEbooks(postFreq=15, post=False, maxLength=100, minLength=30):
 
     account = "romanticsEbooks"
     mainFile = "romantics-ebooks/RomanticsText.txt"
@@ -84,7 +84,7 @@ def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30, post=False):
 #-------------------------------------------------------------------------------
 # Ulysses eBooks
 #-------------------------------------------------------------------------------
-def postUlyssesEbooks(postFreq=15, maxLength=120, minLength=30, post=False):
+def postUlyssesEbooks(postFreq=15, post=False, maxLength=120, minLength=30):
 
     account = "ulyssesEbooks"
     mainFile = "ulysses-ebooks/Ulysses.txt"
