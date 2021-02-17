@@ -17,7 +17,7 @@ verbose = False
 post = False
 
 print("~Genre Defining~")
-JadeBots.postGenreDefining(postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose, post)
+JadeBots.postGenreDefining(postFreq, post, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
 
 
 #Mario Variants
@@ -28,7 +28,7 @@ verbose = False
 post = False
 
 print("\n~Super Mario Variants~")
-JadeBots.postMarioVariants(postFreq, extraPrefixPercent, suffixPercent, verbose, post)
+JadeBots.postMarioVariants(postFreq, post, extraPrefixPercent, suffixPercent, verbose)
 
 
 # Romantics Ebooks
@@ -37,7 +37,7 @@ maxLength = 100
 post = False
 
 print("\n~Romantics eBooks~")
-JadeBots.postRomanticsEbooks(postFreq, maxLength, post)
+JadeBots.postRomanticsEbooks(postFreq, post, maxLength)
 
 
 # Ulysses Ebooks
@@ -46,4 +46,4 @@ maxLength = 120
 post = False
 
 print("\n~Ulysses eBooks~")
-JadeBots.postUlyssesEbooks(postFreq, maxLength, post)
+JadeBots.postUlyssesEbooks(postFreq, post, maxLength)
