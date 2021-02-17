@@ -7,7 +7,7 @@ import tweetBot
 #-------------------------------------------------------------------------------
 # Genre Defining
 #-------------------------------------------------------------------------------
-def postGenreDefining(postFreq=4, altPostFreq=12, altGenreExtraFreq=16, altGenreGameFreq=24, verbose=False):
+def postGenreDefining(postFreq=4, altPostFreq=12, altGenreExtraFreq=16, altGenreGameFreq=24, verbose=False, post=False):
 
     account = "genreDefining"
     gameFile = "genre-defining/game.txt"
@@ -28,14 +28,15 @@ def postGenreDefining(postFreq=4, altPostFreq=12, altGenreExtraFreq=16, altGenre
     print(tweetText)
 
     # Post the tweet to Twitter
-    tweetBot.postTweet(tweetText, account, postFreq)
+    if post == True:
+        tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
 #-------------------------------------------------------------------------------
 # Super Mario Variants
 #-------------------------------------------------------------------------------
-def postMarioVariants(postFreq=4, verbose=False):
+def postMarioVariants(postFreq=4, verbose=False, post=False):
 
     account = "marioVariants"
     nameFile = "mario-variants/name.txt"
@@ -57,14 +58,15 @@ def postMarioVariants(postFreq=4, verbose=False):
     print(tweetText)
 
     # Post the tweet to Twitter
-    tweetBot.postTweet(tweetText, account, postFreq)
+    if post == True:
+        tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
 #-------------------------------------------------------------------------------
 # Romantics eBooks
 #-------------------------------------------------------------------------------
-def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30):
+def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30, post=False):
 
     account = "romanticsEbooks"
     mainFile = "romantics-ebooks/RomanticsText.txt"
@@ -74,14 +76,15 @@ def postRomanticsEbooks(postFreq=15, maxLength=100, minLength=30):
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
-    tweetBot.postTweet(tweetText, account, postFreq)
+    if post == True:
+        tweetBot.postTweet(tweetText, account, postFreq)
 
 
 
 #-------------------------------------------------------------------------------
 # Ulysses eBooks
 #-------------------------------------------------------------------------------
-def postUlyssesEbooks(postFreq=15, maxLength=120, minLength=30):
+def postUlyssesEbooks(postFreq=15, maxLength=120, minLength=30, post=False):
 
     account = "ulyssesEbooks"
     mainFile = "ulysses-ebooks/Ulysses.txt"
@@ -91,4 +94,5 @@ def postUlyssesEbooks(postFreq=15, maxLength=120, minLength=30):
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
-    tweetBot.postTweet(tweetText, account, postFreq)
+    if post == True:
+        tweetBot.postTweet(tweetText, account, postFreq)
