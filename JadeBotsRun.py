@@ -23,8 +23,8 @@ JadeBots.postGenreDefining(postFreq, altPostFreq, altGenreExtraFreq, altGenreGam
 postFreq = 1
 verbose = True
 
-print("~Super Mario Variants~")
-JadeBots.postGenreDefining(postFreq, verbose)
+print("\n~Super Mario Variants~")
+JadeBots.postMarioVariants(postFreq, verbose)
 
 
 # Romantics Ebooks
