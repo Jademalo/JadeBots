@@ -19,6 +19,14 @@ print("~Genre Defining~")
 JadeBots.postGenreDefining(postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
 
 
+#Mario Variants
+postFreq = 1
+verbose = True
+
+print("~Super Mario Variants~")
+JadeBots.postGenreDefining(postFreq, verbose)
+
+
 # Romantics Ebooks
 postFreq = 15
 maxLength = 100
