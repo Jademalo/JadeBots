@@ -21,7 +21,7 @@ JadeBots.postGenreDefining(postFreq, post, altPostFreq, altGenreExtraFreq, altGe
 
 
 #Mario Variants
-postFreq = 1
+postFreq = 24
 post = True
 extraPrefixPercent = 25
 suffixPercent = 5
