@@ -8,13 +8,14 @@ steps:
   - jadebots-post
   - --region=us-east1
   - --source=.
-  - --trigger-topic tweetBot-hourly
-  - --entry-point gcpRun
-  - --runtime python39
+  - --trigger-topic=tweetBot-hourly
+  - --entry-point=gcpRun
+  - --runtime=python39
 
 # Change the URL of the submodule to point to the mirrored repo in google cloud, then download the submodules
 - name: 'gcr.io/cloud-builders/git'
   entrypoint: 'bash'
+  env: ['GIT_DISCOVERY_ACROSS_FILESYSTEM=1']
   args:
   - '-c'
   - |
