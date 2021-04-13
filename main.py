@@ -13,10 +13,7 @@ import JadeBots
 # Main Functions
 #-------------------------------------------------------------------------------
 
-def postAll(data={}, context):
-    #data is the payload from PubSub, context is something
-    print(data)
-    print(context)
+def postAll():
 
     #Genre Defining
     postFreq = 24
@@ -57,3 +54,11 @@ def postAll(data={}, context):
 
     print("\n~Ulysses eBooks~")
     JadeBots.postUlyssesEbooks(postFreq, post, maxLength)
+
+
+
+def gcpRun(data, context):
+        #data is the payload from PubSub, context is something
+        print(data)
+        print(context)
+        postAll()
