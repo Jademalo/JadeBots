@@ -17,7 +17,7 @@ def postAll():
 
     #Genre Defining
     postFreq = 24
-    post = True
+    post = False
     altPostFreq = 12
     altGenreExtraFreq = 16
     altGenreGameFreq = 24
@@ -29,7 +29,7 @@ def postAll():
 
     #Mario Variants
     postFreq = 24
-    post = True
+    post = False
     extraPrefixPercent = 25
     suffixPercent = 5
     verbose = False
@@ -40,7 +40,7 @@ def postAll():
 
     # Romantics Ebooks
     postFreq = 15
-    post = True
+    post = False
     maxLength = 100
 
     print("\n~Romantics eBooks~")
@@ -49,7 +49,7 @@ def postAll():
 
     # Ulysses Ebooks
     postFreq = 15
-    post = True
+    post = False
     maxLength = 120
 
     print("\n~Ulysses eBooks~")
