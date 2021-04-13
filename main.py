@@ -13,7 +13,10 @@ import JadeBots
 # Main Functions
 #-------------------------------------------------------------------------------
 
-def postAll():
+def postAll(data={}, context):
+    #data is the payload from PubSub, context is something
+    print(data)
+    print(context)
 
     #Genre Defining
     postFreq = 24
