@@ -16,8 +16,8 @@ import JadeBots
 def postAll():
 
     #Genre Defining
-    postFreq = 24
-    post = False
+    postFreq = 1#24
+    post = True
     altPostFreq = 12
     altGenreExtraFreq = 16
     altGenreGameFreq = 24
@@ -28,8 +28,8 @@ def postAll():
 
 
     #Mario Variants
-    postFreq = 24
-    post = False
+    postFreq = 1#24
+    post = True
     extraPrefixPercent = 25
     suffixPercent = 5
     verbose = False
@@ -39,8 +39,8 @@ def postAll():
 
 
     # Romantics Ebooks
-    postFreq = 15
-    post = False
+    postFreq = 1#15
+    post = True
     maxLength = 100
 
     print("\n~Romantics eBooks~")
@@ -48,7 +48,7 @@ def postAll():
 
 
     # Ulysses Ebooks
-    postFreq = 1
+    postFreq = 1#15
     post = True
     maxLength = 120
 
