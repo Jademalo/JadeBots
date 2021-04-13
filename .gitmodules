@@ -1,0 +1,3 @@
+[submodule "tweetBot"]
+	path = tweetBot
+	url = https://github.com/Jademalo/tweetBot
