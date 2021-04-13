@@ -48,8 +48,8 @@ def postAll():
 
 
     # Ulysses Ebooks
-    postFreq = 15
-    post = False
+    postFreq = 1
+    post = True
     maxLength = 120
 
     print("\n~Ulysses eBooks~")
