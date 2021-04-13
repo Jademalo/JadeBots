@@ -15,7 +15,7 @@ def postGenreDefining(postFreq=4, post=False, altPostFreq=12, altGenreExtraFreq=
     genreExtraFile = "genre-defining/genreExtra.txt"
 
     # Generate the tweet
-    tweetText, altGenreGameDebug, altGenreExtraDebug, gameText, genreText, altPostDebug = tweetBot.genreGen(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
+    tweetText, altGenreGameDebug, altGenreExtraDebug, gameText, genreText, altPostDebug = tweetBot.generator.genreGen(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
 
     # If the verbose variable is set to 1, then print extra spam
     if verbose == True:
@@ -29,7 +29,7 @@ def postGenreDefining(postFreq=4, post=False, altPostFreq=12, altGenreExtraFreq=
 
     # Post the tweet to Twitter
     if post == True:
-        tweetBot.postTweet(tweetText, account, postFreq)
+        tweetBot.poster.postTweet(tweetText, account, postFreq)
 
 
 
@@ -44,7 +44,7 @@ def postMarioVariants(postFreq=4, post=False, extraPrefixPercent=10, suffixPerce
     suffixFile = "mario-variants/suffix.txt"
 
     # Generate the tweet
-    tweetText, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.variantGen(nameFile, prefixFile, suffixFile, extraPrefixPercent, suffixPercent)
+    tweetText, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.generator.variantGen(nameFile, prefixFile, suffixFile, extraPrefixPercent, suffixPercent)
 
     # If the verbose variable is set to 1, then print extra spam
     if verbose == True:
@@ -59,7 +59,7 @@ def postMarioVariants(postFreq=4, post=False, extraPrefixPercent=10, suffixPerce
 
     # Post the tweet to Twitter
     if post == True:
-        tweetBot.postTweet(tweetText, account, postFreq)
+        tweetBot.poster.postTweet(tweetText, account, postFreq)
 
 
 
@@ -72,12 +72,12 @@ def postRomanticsEbooks(postFreq=15, post=False, maxLength=100, minLength=30):
     mainFile = "romantics-ebooks/RomanticsText.txt"
 
     # Generate the tweet
-    tweetText = tweetBot.ebooksGen(mainFile, maxLength, minLength)
+    tweetText = tweetBot.generator.ebooksGen(mainFile, maxLength, minLength)
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
     if post == True:
-        tweetBot.postTweet(tweetText, account, postFreq)
+        tweetBot.poster.postTweet(tweetText, account, postFreq)
 
 
 
@@ -90,9 +90,9 @@ def postUlyssesEbooks(postFreq=15, post=False, maxLength=120, minLength=30):
     mainFile = "ulysses-ebooks/Ulysses.txt"
 
     # Generate the tweet
-    tweetText = tweetBot.ebooksGen(mainFile, maxLength, minLength)
+    tweetText = tweetBot.generator.ebooksGen(mainFile, maxLength, minLength)
     # Print the final tweet
     print(tweetText)
     # Post the tweet to Twitter
     if post == True:
-        tweetBot.postTweet(tweetText, account, postFreq)
+        tweetBot.poster.postTweet(tweetText, account, postFreq)
