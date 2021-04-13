@@ -6,7 +6,7 @@ steps:
   args:
   - '-c'
   - |
-    git config -f .gitmodules submodule.tweetBot.url https://source.developers.google.com/p/free-tier-jademalo/r/github_jademalo_tweetbot
+#    git config -f .gitmodules submodule.tweetBot.url https://source.developers.google.com/p/free-tier-jademalo/r/github_jademalo_tweetbot
     git submodule init
     git submodule update
 # Once the Google Cloud build has triggered, build a function based on the repo
