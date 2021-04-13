@@ -1,0 +1,23 @@
+steps:
+# Once the Google Cloud build has triggered, build a function based on the repo
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - jadebots-post
+  - --region=us-east1
+  - --source=.
+  - --trigger-topic tweetBot-hourly
+  - --entry-point gcpRun
+  - --runtime python39
+
+# Change the URL of the submodule to point to the mirrored repo in google cloud, then download the submodules
+- name: 'gcr.io/cloud-builders/git'
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    git config -f .gitmodules submodule.tweetBot.url https://source.cloud.google.com/free-tier-jademalo/r/github_jademalo_tweetbot
+    git submodule init
+    git submodule update
