@@ -5,6 +5,9 @@ import tweetBot
 import keys
 import os
 
+def str2bool(v):
+  return str(v).lower() in ("yes", "true", "t", "1")
+
 
 #-------------------------------------------------------------------------------
 # Genre Defining
@@ -17,12 +20,12 @@ def postGenreDefining():
     genreExtraFile = "genre-defining/genreExtra.txt"
 
     # Environment Variables
-    postFreqGenre = os.environ.get("postFreqGenre")
-    postGenre = os.environ.get("postGenre")
-    altPostFreqGenre = os.environ.get("altPostFreqGenre")
-    altGenreExtraFreqGenre = os.environ.get("altGenreExtraFreqGenre")
-    altGenreGameFreqGenre = os.environ.get("altGenreGameFreqGenre")
-    verboseGenre = os.environ.get("verboseGenre")
+    postFreqGenre = int(os.environ.get("postFreqGenre"))
+    postGenre = str2bool(os.environ.get("postGenre"))
+    altPostFreqGenre = int(os.environ.get("altPostFreqGenre"))
+    altGenreExtraFreqGenre = int(os.environ.get("altGenreExtraFreqGenre"))
+    altGenreGameFreqGenre = int(os.environ.get("altGenreGameFreqGenre"))
+    verboseGenre = str2bool(os.environ.get("verboseGenre"))
 
     # Generate the tweet
     tweetText, altGenreGameDebug, altGenreExtraDebug, gameText, genreText, altPostDebug = tweetBot.genreGen(gameFile, genreFile, genreExtraFile, altPostFreqGenre, altGenreGameFreqGenre, altGenreExtraFreqGenre)
@@ -55,11 +58,11 @@ def postMarioVariants():
     suffixFile = "mario-variants/suffix.txt"
 
     # Environment Variables
-    postFreqMario = os.environ.get("postFreqMario")
-    postMario = os.environ.get("postMario")
-    extraPrefixPercentMario = os.environ.get("extraPrefixPercentMario")
-    suffixPercentMario = os.environ.get("suffixPercentMario")
-    verboseMario = os.environ.get("verboseMario")
+    postFreqMario = int(os.environ.get("postFreqMario"))
+    postMario = str2bool(os.environ.get("postMario"))
+    extraPrefixPercentMario = int(os.environ.get("extraPrefixPercentMario"))
+    suffixPercentMario = int(os.environ.get("suffixPercentMario"))
+    verboseMario = str2bool(os.environ.get("verboseMario"))
 
     # Generate the tweet
     tweetText, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.variantGen(nameFile, prefixFile, suffixFile, extraPrefixPercentMario, suffixPercentMario)
@@ -91,10 +94,10 @@ def postRomanticsEbooks():
     mainFile = "romantics-ebooks/RomanticsText.txt"
 
     # Environment Variables
-    postFreqRomantics = os.environ.get("postFreqRomantics")
-    postRomantics = os.environ.get("postRomantics")
-    maxLengthRomantics = os.environ.get("maxLengthRomantics")
-    minLengthRomantics = os.environ.get("minLengthRomantics")
+    postFreqRomantics = int(os.environ.get("postFreqRomantics"))
+    postRomantics = str2bool(os.environ.get("postRomantics"))
+    maxLengthRomantics = int(os.environ.get("maxLengthRomantics"))
+    minLengthRomantics = int(os.environ.get("minLengthRomantics"))
 
     # Generate the tweet
     tweetText = tweetBot.generator.ebooksGen(mainFile, maxLengthRomantics, minLengthRomantics)
@@ -116,10 +119,10 @@ def postUlyssesEbooks():
     mainFile = "ulysses-ebooks/Ulysses.txt"
 
     # Environment Variables
-    postFreqUlysses = os.environ.get("postFreqUlysses")
-    postUlysses = os.environ.get("postUlysses")
-    maxLengthUlysses = os.environ.get("maxLengthUlysses")
-    minLengthUlysses = os.environ.get("minLengthUlysses")
+    postFreqUlysses = int(os.environ.get("postFreqUlysses"))
+    postUlysses = str2bool(os.environ.get("postUlysses"))
+    maxLengthUlysses = int(os.environ.get("maxLengthUlysses"))
+    minLengthUlysses = int(os.environ.get("minLengthUlysses"))
 
     # Generate the tweet
     tweetText = tweetBot.generator.ebooksGen(mainFile, maxLengthUlysses, minLengthUlysses)
