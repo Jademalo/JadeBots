@@ -55,4 +55,6 @@ def returnKeys(account):
     access_token = os.environ.get(access_token_env),
     access_token_secret = os.environ.get(access_token_secret_env),
 
+    print(consumer_key, consumer_secret, access_token, access_token_secret)
+
     return consumer_key, consumer_secret, access_token, access_token_secret;
