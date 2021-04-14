@@ -23,7 +23,7 @@ steps:
   - jadeBots-genre-post
   - --region=us-east1
   - --source=.
-  - --trigger-topic=jadeBots-hourly
+  - --trigger-topic=jadeBots-post
   - --entry-point=gcpRunGenre
   - --runtime=python39
   - --memory=128MB
@@ -38,7 +38,7 @@ steps:
   - jadeBots-mario-post
   - --region=us-east1
   - --source=.
-  - --trigger-topic=jadeBots-hourly
+  - --trigger-topic=jadeBots-post
   - --entry-point=gcpRunMario
   - --runtime=python39
   - --memory=128MB
@@ -53,7 +53,7 @@ steps:
   - jadeBots-romantics-post
   - --region=us-east1
   - --source=.
-  - --trigger-topic=jadeBots-hourly
+  - --trigger-topic=jadeBots-post
   - --entry-point=gcpRunRomantics
   - --runtime=python39
   - --memory=128MB
@@ -68,7 +68,7 @@ steps:
   - jadeBots-ulysses-post
   - --region=us-east1
   - --source=.
-  - --trigger-topic=jadeBots-hourly
+  - --trigger-topic=jadeBots-post
   - --entry-point=gcpRunUlysses
   - --runtime=python39
   - --memory=128MB
