@@ -2,7 +2,7 @@
 # Imports
 #-------------------------------------------------------------------------------
 import tweetBot
-from . import keys
+import keys
 import os
 
 
