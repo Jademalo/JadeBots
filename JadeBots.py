@@ -55,7 +55,7 @@ def postGenreDefining():
 
     # Post the tweet to Twitter
     if post == True:
-        consumer_key, consumer_secret, access_token, access_token_secret = keys.getKeys()
+        consumer_key, consumer_secret, access_token, access_token_secret = getKeys()
         tweetBot.poster.postTweet(tweetText, consumer_key, consumer_secret, access_token, access_token_secret, postFreq)
 
 
@@ -93,7 +93,7 @@ def postMarioVariants():
 
     # Post the tweet to Twitter
     if post == True:
-        consumer_key, consumer_secret, access_token, access_token_secret = keys.getKeys()
+        consumer_key, consumer_secret, access_token, access_token_secret = getKeys()
         tweetBot.poster.postTweet(tweetText, consumer_key, consumer_secret, access_token, access_token_secret, postFreq)
 
 
@@ -118,7 +118,7 @@ def postRomanticsEbooks():
     print(tweetText)
     # Post the tweet to Twitter
     if post == True:
-        consumer_key, consumer_secret, access_token, access_token_secret = keys.getKeys()
+        consumer_key, consumer_secret, access_token, access_token_secret = getKeys()
         tweetBot.poster.postTweet(tweetText, consumer_key, consumer_secret, access_token, access_token_secret, postFreq)
 
 
@@ -143,5 +143,5 @@ def postUlyssesEbooks():
     print(tweetText)
     # Post the tweet to Twitter
     if post == True:
-        consumer_key, consumer_secret, access_token, access_token_secret = keys.getKeys()
+        consumer_key, consumer_secret, access_token, access_token_secret = getKeys()
         tweetBot.poster.postTweet(tweetText, consumer_key, consumer_secret, access_token, access_token_secret, postFreq)
