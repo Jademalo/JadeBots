@@ -1,6 +1,7 @@
 steps:
 # Change the URL of the submodule to point to the mirrored repo in google cloud, then download the submodules
 - name: 'gcr.io/cloud-builders/git'
+  id: Update Submodules
   entrypoint: 'bash'
   env: ['GIT_DISCOVERY_ACROSS_FILESYSTEM=1']
   args:
@@ -10,6 +11,7 @@ steps:
     git submodule update
 # Once the Google Cloud build has triggered, build a function based on the repo
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: Deploy Genre Defining Function
   args:
   - gcloud
   - functions
