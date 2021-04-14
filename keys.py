@@ -17,37 +17,42 @@ acc4 = "marioVariants"
 
 
 #-------------------------------------------------------------------------------
-# Function for returning the keys
+# Function for returning the env names for each account
 #-------------------------------------------------------------------------------
 def returnKeys(account):
     if account == acc1:
-        consumer_key = os.environ.get("CONSUMER_TOKEN_GENRE"),
-        consumer_secret = os.environ.get("CONSUMER_SECRET_GENRE"),
-        access_token = os.environ.get("ACCESS_TOKEN_GENRE"),
-        access_token_secret = os.environ.get("ACCESS_SECRET_GENRE"),
+        consumer_key_env = "CONSUMER_TOKEN_GENRE",
+        consumer_secret_env = "CONSUMER_SECRET_GENRE",
+        access_token_env = "ACCESS_TOKEN_GENRE",
+        access_token_secret_env = "ACCESS_SECRET_GENRE",
 
     elif account == acc2:
-        consumer_key = os.environ.get("CONSUMER_TOKEN_ROMANTICS"),
-        consumer_secret = os.environ.get("CONSUMER_SECRET_ROMANTICS"),
-        access_token = os.environ.get("ACCESS_TOKEN_ROMANTICS"),
-        access_token_secret = os.environ.get("ACCESS_SECRET_ROMANTICS"),
+        consumer_key_env = "CONSUMER_TOKEN_ROMANTICS",
+        consumer_secret_env = "CONSUMER_SECRET_ROMANTICS",
+        access_token_env = "ACCESS_TOKEN_ROMANTICS",
+        access_token_secret_env = "ACCESS_SECRET_ROMANTICS",
 
     elif account == acc3:
-        consumer_key = os.environ.get("CONSUMER_TOKEN_ULYSSES"),
-        consumer_secret = os.environ.get("CONSUMER_SECRET_ULYSSES"),
-        access_token = os.environ.get("ACCESS_TOKEN_ULYSSES"),
-        access_token_secret = os.environ.get("ACCESS_SECRET_ULYSSES"),
+        consumer_key_env = "CONSUMER_TOKEN_ULYSSES",
+        consumer_secret_env = "CONSUMER_SECRET_ULYSSES",
+        access_token_env = "ACCESS_TOKEN_ULYSSES",
+        access_token_secret_env = "ACCESS_SECRET_ULYSSES",
 
     elif account == acc4:
-        consumer_key = os.environ.get("CONSUMER_TOKEN_MARIO"),
-        consumer_secret = os.environ.get("CONSUMER_SECRET_MARIO"),
-        access_token = os.environ.get("ACCESS_TOKEN_MARIO"),
-        access_token_secret = os.environ.get("ACCESS_SECRET_MARIO"),
+        consumer_key_env = "CONSUMER_TOKEN_MARIO",
+        consumer_secret_env = "CONSUMER_SECRET_MARIO",
+        access_token_env = "ACCESS_TOKEN_MARIO",
+        access_token_secret_env = "ACCESS_SECRET_MARIO",
 
     else:
-        consumer_key = ""
-        consumer_secret = ""
-        access_token = ""
-        access_token_secret = ""
+        consumer_key_env = ""
+        consumer_secret_env = ""
+        access_token_env = ""
+        access_token_secret_env = ""
+
+    consumer_key = os.environ.get(consumer_key_env),
+    consumer_secret = os.environ.get(consumer_secret_env),
+    access_token = os.environ.get(access_token_env),
+    access_token_secret = os.environ.get(access_token_secret_end),
 
     return consumer_key, consumer_secret, access_token, access_token_secret;

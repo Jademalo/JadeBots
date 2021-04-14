@@ -13,52 +13,24 @@ import JadeBots
 # Main Functions
 #-------------------------------------------------------------------------------
 
-def postAll():
+def gcpRun(data, context):
+
+    #data is the payload from PubSub, context is something
+    print(data)
+    print(context)
 
     #Genre Defining
-    postFreq = 1#24
-    post = True
-    altPostFreq = 12
-    altGenreExtraFreq = 16
-    altGenreGameFreq = 24
-    verbose = False
-
     print("~Genre Defining~")
-    JadeBots.postGenreDefining(postFreq, post, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
-
+    JadeBots.postGenreDefining()
 
     #Mario Variants
-    postFreq = 1#24
-    post = True
-    extraPrefixPercent = 25
-    suffixPercent = 5
-    verbose = False
-
     print("\n~Super Mario Variants~")
-    JadeBots.postMarioVariants(postFreq, post, extraPrefixPercent, suffixPercent, verbose)
-
+    JadeBots.postMarioVariants()
 
     # Romantics Ebooks
-    postFreq = 1#15
-    post = True
-    maxLength = 100
-
     print("\n~Romantics eBooks~")
-    JadeBots.postRomanticsEbooks(postFreq, post, maxLength)
-
+    JadeBots.postRomanticsEbooks()
 
     # Ulysses Ebooks
-    postFreq = 1#15
-    post = True
-    maxLength = 120
-
     print("\n~Ulysses eBooks~")
-    JadeBots.postUlyssesEbooks(postFreq, post, maxLength)
-
-
-
-def gcpRun(data, context):
-        #data is the payload from PubSub, context is something
-        print(data)
-        print(context)
-        postAll()
+    JadeBots.postUlyssesEbooks()
