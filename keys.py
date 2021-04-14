@@ -53,6 +53,6 @@ def returnKeys(account):
     consumer_key = os.environ.get(consumer_key_env),
     consumer_secret = os.environ.get(consumer_secret_env),
     access_token = os.environ.get(access_token_env),
-    access_token_secret = os.environ.get(access_token_secret_end),
+    access_token_secret = os.environ.get(access_token_secret_env),
 
     return consumer_key, consumer_secret, access_token, access_token_secret;
