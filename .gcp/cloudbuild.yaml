@@ -1,0 +1,74 @@
+steps:
+# Change the URL of the submodule to point to the mirrored repo in google cloud, then download the submodules
+- name: 'gcr.io/cloud-builders/git'
+  id: Update Submodules
+  entrypoint: 'bash'
+  env: ['GIT_DISCOVERY_ACROSS_FILESYSTEM=1']
+  args:
+  - '-c'
+  - |
+    git submodule init
+    git submodule update
+
+# Once the Google Cloud build has triggered, build a function based on the repo
+# All functions use the same code and environment, but with different variables
+
+# This function runs Genre Defining
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: Deploy Genre Defining Function
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - jadeBots-genre-post
+  - --region=us-east1
+  - --source=.
+  - --trigger-topic=jadeBots-post
+  - --entry-point=gcpRunGenre
+  - --runtime=python39
+  - --memory=128MB
+
+# This function runs Mario Variants
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: Deploy Mario Variants Function
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - jadeBots-mario-post
+  - --region=us-east1
+  - --source=.
+  - --trigger-topic=jadeBots-post
+  - --entry-point=gcpRunMario
+  - --runtime=python39
+  - --memory=128MB
+
+# This function runs Romantics Ebooks
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: Deploy Romantics Ebooks Function
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - jadeBots-romantics-post
+  - --region=us-east1
+  - --source=.
+  - --trigger-topic=jadeBots-post
+  - --entry-point=gcpRunRomantics
+  - --runtime=python39
+  - --memory=128MB
+
+# This function runs Ulysses Ebooks
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  id: Deploy Ulysses Ebooks Function
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - jadeBots-ulysses-post
+  - --region=us-east1
+  - --source=.
+  - --trigger-topic=jadeBots-post
+  - --entry-point=gcpRunUlysses
+  - --runtime=python39
+  - --memory=128MB
