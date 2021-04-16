@@ -1,4 +1,4 @@
-name: Deploy to Lambda Functions
+name: Deploy to AWS Lambda
 
 # Trigger only on a push to the aws-lambda branch
 on:
@@ -79,6 +79,7 @@ jobs:
           handler: lambda.awsRunUlysses
           zip_file: bundle.zip
 
+
   deploy_layer:
     name: Deploy Lambda Layers
     runs-on: ubuntu-latest
@@ -105,7 +106,7 @@ jobs:
       with:
         path: JadeBots
 
-    - name: Install tweepy and release to Layer
+    - name: Install requirements and release to Layer
       run: |
         mkdir python
         # Install libraries from requirements
@@ -123,7 +124,7 @@ jobs:
         repository: Jademalo/tweetBot
         path: tweetBot
 
-    - name: Install requirements and release to Layer
+    - name: Zip tweetBot and release to Layer
       run: |
         rm -r python
         mkdir python
