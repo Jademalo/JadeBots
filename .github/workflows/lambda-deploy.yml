@@ -9,6 +9,76 @@ on:
       - '*'
 
 jobs:
+  deploy_genre:
+    name: Deploy functions to Lambda
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # Clone the project into the build environment
+      - name: Clone Project
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 50
+
+      # Zip the project ready for deployment
+      - name: Zip Project
+        uses: montudor/action-zip@v0.1.1
+        with:
+          args: zip -qq -r ./bundle.zip ./
+
+      # Deploy the function for Genre Defining
+      - name: Deploy Genre Defining Function
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: jadeBots-genre-post
+          description: 'The function to post to Genre Defining'
+          runtime: python3.8
+          handler: lambda.awsRunGenre
+          zip_file: bundle.zip
+
+      # Deploy the function for Mario Variants
+      - name: Deploy Mario Variants Function
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: jadeBots-mario-post
+          description: 'The function to post to Mario Variants'
+          runtime: python3.8
+          handler: lambda.awsRunMario
+          zip_file: bundle.zip
+
+      # Deploy the function for Romantics Ebooks
+      - name: Deploy Romantics Ebooks Function
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: jadeBots-romantics-post
+          description: 'The function to post to Genre Defining'
+          runtime: python3.8
+          handler: lambda.awsRunRomantics
+          zip_file: bundle.zip
+
+      # Deploy the function for Ulysses Ebooks
+      - name: Deploy Ulysses Ebooks Function
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }}
+          function_name: jadeBots-ulysses-post
+          description: 'The function to post to Ulysses Ebooks'
+          runtime: python3.8
+          handler: lambda.awsRunUlysses
+          zip_file: bundle.zip
+
 
   deploy_layer:
     name: Deploy Lambda Layers
@@ -24,6 +94,29 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
+    # Setup Python in the build environment
+    - name: Setup Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    # Clone the project into the build environment
+    - name: Clone Project
+      uses: actions/checkout@v2
+      with:
+        path: JadeBots
+
+    - name: Install requirements and release to Layer
+      run: |
+        mkdir python
+        # Install libraries from requirements
+        pip install -r JadeBots/requirements.txt -t python
+        # Zip the python folder
+        zip --quiet -r python-tweepy.zip python
+
+        # Upload the libraries to a Lambda Layer
+        aws lambda publish-layer-version --layer-name python-tweepy --zip-file fileb://python-tweepy.zip --compatible-runtimes python3.6 python3.7 python3.8
+
     # Clone tweetBot into the build environment
     - name: Download tweetBot
       uses: actions/checkout@v2
@@ -33,6 +126,7 @@ jobs:
 
     - name: Zip tweetBot and release to Layer
       run: |
+        rm -r python
         mkdir python
         # Add tweetBot to the python folder
         cp -r tweetBot python/tweetBot
