@@ -17,14 +17,14 @@ jobs:
 
       # Clone the project into the build environment
       - name: Clone Project
-      - uses: actions/checkout@v1
+        uses: actions/checkout@v1
         with:
           fetch-depth: 50
           submodules: true
 
       # Zip the project ready for deployment
       - name: Zip Project
-        uses: montudor/action-zip@v0.1.0
+        uses: montudor/action-zip@v0.1.1
         with:
           args: zip -qq -r ./bundle.zip ./
 
