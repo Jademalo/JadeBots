@@ -80,7 +80,7 @@ jobs:
           zip_file: bundle.zip
 
   deploy_layer:
-    name: Deploy Requirements Layer
+    name: Deploy Lambda Layers
     runs-on: ubuntu-latest
 
     steps:
@@ -93,17 +93,30 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
+    # Setup Python in the build environment
     - name: Setup Python 3.8
       uses: actions/setup-python@v1
       with:
         python-version: 3.8
 
+    # Clone the project into the build environment
     - name: Clone Project
       uses: actions/checkout@v2
       with:
         path: JadeBots
 
-    # Clone the project into the build environment
+    - name: Install tweepy and release to Layer
+      run: |
+        mkdir python
+        # Install libraries from requirements
+        pip install -r JadeBots/requirements.txt -t python
+        # Zip the python folder
+        zip --quiet -r python-tweepy.zip python
+
+        # Upload the libraries to a Lambda Layer
+        aws lambda publish-layer-version --layer-name python-tweepy --zip-file fileb://python-tweepy.zip --compatible-runtimes python3.6 python3.7 python3.8
+
+    # Clone tweetBot into the build environment
     - name: Download tweetBot
       uses: actions/checkout@v2
       with:
@@ -112,13 +125,12 @@ jobs:
 
     - name: Install requirements and release to Layer
       run: |
+        rm -r python
         mkdir python
-        # Install libraries from requirements
-        pip install -r JadeBots/requirements.txt -t python
         # Add tweetBot to the python folder
         cp -r tweetBot python/tweetBot
         # Zip the python folder
-        zip --quiet -r tweetBot-libs.zip python
+        zip --quiet -r python-tweetBot.zip python
 
-        # Upload the libraries to a Lambda Layer
-        aws lambda publish-layer-version --layer-name tweetBot-libs --zip-file fileb://tweetBot-libs.zip --compatible-runtimes python3.6 python3.7 python3.8
+        # Upload tweetBot to a Lambda Layer
+        aws lambda publish-layer-version --layer-name python-tweetBot --zip-file fileb://tweetBot-libs.zip --compatible-runtimes python3.6 python3.7 python3.8
