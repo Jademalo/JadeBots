@@ -17,10 +17,9 @@ jobs:
 
       # Clone the project into the build environment
       - name: Clone Project
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
         with:
           fetch-depth: 50
-          submodules: true
 
       # Zip the project ready for deployment
       - name: Zip Project
@@ -79,3 +78,47 @@ jobs:
           runtime: python3.8
           handler: lambda.awsRunUlysses
           zip_file: bundle.zip
+
+  deploy_layer:
+    name: Deploy Requirements Layer
+    runs-on: ubuntu-latest
+
+    steps:
+
+    # Configure AWS credentials for upload
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Setup Python 3.8
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.8
+
+    - name: Clone Project
+      uses: actions/checkout@v2
+      with:
+        path: JadeBots
+
+    # Clone the project into the build environment
+    - name: Download tweetBot
+      uses: actions/checkout@v2
+      with:
+        repository: Jademalo/tweetBot
+        path: tweetBot
+
+    - name: Install requirements and release to Layer
+      run: |
+        mkdir python
+        # Install libraries from requirements
+        pip install -r JadeBots/requirements.txt -t python
+        # Add tweetBot to the python folder
+        cp -r tweetBot python/tweetBot
+        # Zip the python folder
+        zip --quiet -r tweetBot-libs.zip python
+
+        # Upload the libraries to a Lambda Layer
+        aws lambda publish-layer-version --layer-name tweetBot-libs --zip-file tweetBot-libs.zip --compatible-runtimes python3.6 python3.7 python3.8
