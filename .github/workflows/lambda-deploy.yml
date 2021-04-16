@@ -33,7 +33,6 @@ jobs:
 
     - name: Zip tweetBot and release to Layer
       run: |
-        rm -r python
         mkdir python
         # Add tweetBot to the python folder
         cp -r tweetBot python/tweetBot
