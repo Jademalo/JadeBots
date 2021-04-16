@@ -121,4 +121,4 @@ jobs:
         zip --quiet -r tweetBot-libs.zip python
 
         # Upload the libraries to a Lambda Layer
-        aws lambda publish-layer-version --layer-name tweetBot-libs --zip-file tweetBot-libs.zip --compatible-runtimes python3.6 python3.7 python3.8
+        aws lambda publish-layer-version --layer-name tweetBot-libs --zip-file fileb://tweetBot-libs.zip --compatible-runtimes python3.6 python3.7 python3.8
