@@ -3,7 +3,7 @@
 This is an implementation of tweetBot specifically for my twitter bots
 
 https://twitter.com/Genre_Defining  
-https://twitter.com/MarioVariants
+https://twitter.com/MarioVariants  
 https://twitter.com/Romantic_ebooks  
 https://twitter.com/ulyssebooks
 
