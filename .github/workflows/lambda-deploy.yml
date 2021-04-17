@@ -21,6 +21,11 @@ jobs:
         with:
           fetch-depth: 50
 
+      # Remove all images from project folders to keep code smaller
+      - name: Remove Images
+        run: |
+          find . -type f \( -name \*jpg -o -name \*png \) -delete
+
       # Zip the project ready for deployment
       - name: Zip Project
         uses: montudor/action-zip@v0.1.1
