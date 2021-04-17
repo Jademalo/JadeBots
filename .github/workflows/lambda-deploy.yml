@@ -115,7 +115,7 @@ jobs:
         zip --quiet -r python-tweepy.zip python
 
         # Upload the libraries to a Lambda Layer
-        aws lambda publish-layer-version --layer-name python-tweepy --zip-file fileb://python-tweepy.zip --compatible-runtimes python3.6 python3.7 python3.8
+        aws lambda publish-layer-version --layer-name python-tweepy --description 'The Python module tweepy' --zip-file fileb://python-tweepy.zip --compatible-runtimes python3.6 python3.7 python3.8
 
     # Clone tweetBot into the build environment
     - name: Download tweetBot
@@ -134,4 +134,4 @@ jobs:
         zip --quiet -r python-tweetBot.zip python
 
         # Upload tweetBot to a Lambda Layer
-        aws lambda publish-layer-version --layer-name python-tweetBot --zip-file fileb://python-tweetBot.zip --compatible-runtimes python3.6 python3.7 python3.8
+        aws lambda publish-layer-version --layer-name python-tweetBot --description 'The Python module tweetBot' --zip-file fileb://python-tweetBot.zip --compatible-runtimes python3.6 python3.7 python3.8
