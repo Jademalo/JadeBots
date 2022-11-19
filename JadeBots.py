@@ -100,8 +100,8 @@ def postRomanticsEbooks():
     postTwitter = str2bool(os.getenv("POST_TWITTER"))
     postMastodon = str2bool(os.getenv("POST_MASTODON"))
     postFreq = int(os.getenv("POST_FREQ"))
-    maxLength = int(os.getenv("MAX_LENGTH"))
     minLength = int(os.getenv("MIN_LENGTH"))
+    maxLength = int(os.getenv("MAX_LENGTH"))
 
     # Generate the message
     text = tweetBot.ebooksGen(mainFile, maxLength, minLength)
@@ -126,8 +126,8 @@ def postUlyssesEbooks():
     postTwitter = str2bool(os.getenv("POST_TWITTER"))
     postMastodon = str2bool(os.getenv("POST_MASTODON"))
     postFreq = int(os.getenv("POST_FREQ"))
-    maxLength = int(os.getenv("MAX_LENGTH"))
     minLength = int(os.getenv("MIN_LENGTH"))
+    maxLength = int(os.getenv("MAX_LENGTH"))
 
     # Generate the message
     text = tweetBot.ebooksGen(mainFile, maxLength, minLength)
