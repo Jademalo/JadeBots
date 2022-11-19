@@ -24,21 +24,21 @@ def awsRunGenre(event, context):
 def awsRunMario(event, context):
 
     #Mario Variants
-    print("\n~Super Mario Variants~")
+    print("~Super Mario Variants~")
     JadeBots.postMarioVariants()
 
 
 def awsRunRomantics(event, context):
 
     # Romantics Ebooks
-    print("\n~Romantics eBooks~")
+    print("~Romantics eBooks~")
     JadeBots.postRomanticsEbooks()
 
 
 def awsRunUlysses(event, context):
 
     # Ulysses Ebooks
-    print("\n~Ulysses eBooks~")
+    print("~Ulysses eBooks~")
     JadeBots.postUlyssesEbooks()
 
 
