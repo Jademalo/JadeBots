@@ -3,23 +3,12 @@
 #-------------------------------------------------------------------------------
 import tweetBot
 import os
+import dotenv
 
 # Quick little function to convert a text string to a boolean
 def str2bool(v):
   return str(v).lower() in ("yes", "true", "t", "1")
 
-
-#-------------------------------------------------------------------------------
-# Function for returning the keys from environment variables
-#-------------------------------------------------------------------------------
-def getKeys():
-
-    consumer_key = os.environ.get("CONSUMER_TOKEN")
-    consumer_secret = os.environ.get("CONSUMER_SECRET")
-    access_token = os.environ.get("ACCESS_TOKEN")
-    access_token_secret = os.environ.get("ACCESS_SECRET")
-
-    return consumer_key, consumer_secret, access_token, access_token_secret;
 
 
 #-------------------------------------------------------------------------------
@@ -33,15 +22,17 @@ def postGenreDefining():
     genreExtraFile = "genre-defining/genreExtra.txt"
 
     # Environment Variables
-    postFreq = int(os.environ.get("postFreq"))
-    post = str2bool(os.environ.get("post"))
-    altPostFreq = int(os.environ.get("altPostFreq"))
-    altGenreExtraFreq = int(os.environ.get("altGenreExtraFreq"))
-    altGenreGameFreq = int(os.environ.get("altGenreGameFreq"))
-    verbose = str2bool(os.environ.get("verbose"))
+    dotenv.load_dotenv()
+    postTwitter = str2bool(os.getenv("POST_TWITTER"))
+    postMastodon = str2bool(os.getenv("POST_MASTODON"))
+    postFreq = int(os.getenv("POST_FREQ"))
+    altPostFreq = int(os.getenv("ALT_POST_FREQ"))
+    altGenreExtraFreq = int(os.getenv("ALT_GENRE_EXTRA_FREQ"))
+    altGenreGameFreq = int(os.getenv("ALT_GENRE_GAME_FREQ"))
+    verbose = str2bool(os.getenv("VERBOSE"))
 
-    # Generate the tweet
-    tweetText, altGenreGameDebug, altGenreExtraDebug, gameText, genreText, altPostDebug = tweetBot.genreGen(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
+    # Generate the message
+    text, altGenreGameDebug, altGenreExtraDebug, gameText, genreText, altPostDebug = tweetBot.genreGen(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
 
     # If the verbose variable is set to 1, then print extra spam
     if verbose == True:
@@ -50,13 +41,11 @@ def postGenreDefining():
         print("gameText =", gameText)
         print("genreText =", genreText)
         print("Alternate format? -", altPostDebug)
-    # Print the final tweet
-    print(tweetText)
 
-    # Post the tweet to Twitter
-    if post == True:
-        consumer_key, consumer_secret, access_token, access_token_secret = getKeys()
-        tweetBot.poster.postTweet(tweetText, consumer_key, consumer_secret, access_token, access_token_secret, postFreq)
+    # Print the final message
+    print(text)
+    # Post the message
+    tweetBot.post(text, postFreq, twitterPost=postTwitter, mastodonPost=postMastodon)
 
 
 
@@ -71,14 +60,16 @@ def postMarioVariants():
     suffixFile = "mario-variants/suffix.txt"
 
     # Environment Variables
-    postFreq = int(os.environ.get("postFreq"))
-    post = str2bool(os.environ.get("post"))
-    extraPrefixPercent = int(os.environ.get("extraPrefixPercent"))
-    suffixPercent = int(os.environ.get("suffixPercent"))
-    verbose = str2bool(os.environ.get("verbose"))
+    dotenv.load_dotenv()
+    postTwitter = str2bool(os.getenv("POST_TWITTER"))
+    postMastodon = str2bool(os.getenv("POST_MASTODON"))
+    postFreq = int(os.getenv("POST_FREQ"))
+    extraPrefixPercent = int(os.getenv("EXTRA_PREFIX_PERCENT"))
+    suffixPercent = int(os.getenv("SUFFIX_PERCENT"))
+    verbose = str2bool(os.getenv("VERBOSE"))
 
-    # Generate the tweet
-    tweetText, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.variantGen(nameFile, prefixFile, suffixFile, extraPrefixPercent, suffixPercent)
+    # Generate the message
+    text, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.variantGen(nameFile, prefixFile, suffixFile, extraPrefixPercent, suffixPercent)
 
     # If the verbose variable is set to 1, then print extra spam
     if verbose == True:
@@ -88,13 +79,11 @@ def postMarioVariants():
         print("prefixText =", prefixText)
         print("prefixExtraText =", prefixExtraText)
         print("suffixText =", suffixText)
-    # Print the final tweet
-    print(tweetText)
 
-    # Post the tweet to Twitter
-    if post == True:
-        consumer_key, consumer_secret, access_token, access_token_secret = getKeys()
-        tweetBot.poster.postTweet(tweetText, consumer_key, consumer_secret, access_token, access_token_secret, postFreq)
+    # Print the final message
+    print(text)
+    # Post the message
+    tweetBot.post(text, postFreq, twitterPost=postTwitter, mastodonPost=postMastodon)
 
 
 
@@ -107,19 +96,20 @@ def postRomanticsEbooks():
     mainFile = "romantics-ebooks/RomanticsText.txt"
 
     # Environment Variables
-    postFreq = int(os.environ.get("postFreq"))
-    post = str2bool(os.environ.get("post"))
-    maxLength = int(os.environ.get("maxLength"))
-    minLength = int(os.environ.get("minLength"))
+    dotenv.load_dotenv()
+    postTwitter = str2bool(os.getenv("POST_TWITTER"))
+    postMastodon = str2bool(os.getenv("POST_MASTODON"))
+    postFreq = int(os.getenv("POST_FREQ"))
+    maxLength = int(os.getenv("MAX_LENGTH"))
+    minLength = int(os.getenv("MIN_LENGTH"))
 
-    # Generate the tweet
-    tweetText = tweetBot.generator.ebooksGen(mainFile, maxLength, minLength)
-    # Print the final tweet
-    print(tweetText)
-    # Post the tweet to Twitter
-    if post == True:
-        consumer_key, consumer_secret, access_token, access_token_secret = getKeys()
-        tweetBot.poster.postTweet(tweetText, consumer_key, consumer_secret, access_token, access_token_secret, postFreq)
+    # Generate the message
+    text = tweetBot.ebooksGen(mainFile, maxLength, minLength)
+
+    # Print the final message
+    print(text)
+    # Post the message
+    tweetBot.post(text, postFreq, twitterPost=postTwitter, mastodonPost=postMastodon)
 
 
 
@@ -132,16 +122,17 @@ def postUlyssesEbooks():
     mainFile = "ulysses-ebooks/Ulysses.txt"
 
     # Environment Variables
-    postFreq = int(os.environ.get("postFreq"))
-    post = str2bool(os.environ.get("post"))
-    maxLength = int(os.environ.get("maxLength"))
-    minLength = int(os.environ.get("minLength"))
+    dotenv.load_dotenv()
+    postTwitter = str2bool(os.getenv("POST_TWITTER"))
+    postMastodon = str2bool(os.getenv("POST_MASTODON"))
+    postFreq = int(os.getenv("POST_FREQ"))
+    maxLength = int(os.getenv("MAX_LENGTH"))
+    minLength = int(os.getenv("MIN_LENGTH"))
 
-    # Generate the tweet
-    tweetText = tweetBot.generator.ebooksGen(mainFile, maxLength, minLength)
-    # Print the final tweet
-    print(tweetText)
-    # Post the tweet to Twitter
-    if post == True:
-        consumer_key, consumer_secret, access_token, access_token_secret = getKeys()
-        tweetBot.poster.postTweet(tweetText, consumer_key, consumer_secret, access_token, access_token_secret, postFreq)
+    # Generate the message
+    text = tweetBot.ebooksGen(mainFile, maxLength, minLength)
+
+    # Print the final message
+    print(text)
+    # Post the message
+    tweetBot.post(text, postFreq, twitterPost=postTwitter, mastodonPost=postMastodon)
