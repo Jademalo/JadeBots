@@ -66,7 +66,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
           function_name: jadeBots-romantics-post
-          description: 'The function to post to Genre Defining'
+          description: 'The function to post to Romantics Ebooks'
           runtime: python3.8
           handler: lambda.awsRunRomantics
           zip_file: bundle.zip
