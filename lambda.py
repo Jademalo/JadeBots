@@ -107,7 +107,7 @@ def lambdaHandler(event, context):
         verbose = str2bool(event.get("VERBOSE"))
 
         print("~Super Mario Variants~")
-        JadeBots.postGenreDefining(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+        JadeBots.postMarioVariants(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, extraPrefixPercent, suffixPercent, verbose)
 
 
     if account == "romanticsEbooks":
@@ -116,14 +116,14 @@ def lambdaHandler(event, context):
         maxLength = int(event.get("MAX_LENGTH"))
 
         print("~Romantics eBooks~")
-        JadeBots.postGenreDefining(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+        JadeBots.postRomanticsEbooks(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, minLength, maxLength)
 
 
-    if account == "ulyseesEbooks":
+    if account == "ulyssesEbooks":
 
         minLength = int(event.get("MIN_LENGTH"))
         maxLength = int(event.get("MAX_LENGTH"))
 
         print("~Ulysses eBooks~")
-        JadeBots.postGenreDefining(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+        JadeBots.postUlyssesEbooks(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, minLength, maxLength)
 
