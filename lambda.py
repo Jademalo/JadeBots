@@ -9,60 +9,121 @@
 # Imports
 #-------------------------------------------------------------------------------
 import JadeBots
+from JadeBots import str2bool
+import os
+import json
+import urllib.request
+
 
 
 #-------------------------------------------------------------------------------
-# Main Functions
+# Functions
 #-------------------------------------------------------------------------------
 
-
-def awsRunGenre(event, context):
-
-    #Genre Defining
-    print("~Genre Defining~")
-    JadeBots.postGenreDefining()
-
-
-def awsRunMario(event, context):
-
-    #Mario Variants
-    print("~Super Mario Variants~")
-    JadeBots.postMarioVariants()
+# Check if a string is valid JSON
+def isJson(myjson):
+  try:
+    json.loads(myjson)
+  except ValueError as e:
+    return False
+  return True
 
 
-def awsRunRomantics(event, context):
+# Retrive a parameter from Parameter Store
+def retriveParam(name):
 
-    # Romantics Ebooks
-    print("~Romantics eBooks~")
-    JadeBots.postRomanticsEbooks()
+    aws_session_token = os.environ.get('AWS_SESSION_TOKEN')
+    req = urllib.request.Request('http://localhost:2773/systemsmanager/parameters/get?name='+name+'&withDecryption=true')
+    req.add_header('X-Aws-Parameters-Secrets-Token', aws_session_token)
+    param = json.loads(urllib.request.urlopen(req).read())
+
+    return param #Returned as a dict
+    
+
+# Format a parameter from Parameter Store
+def formatParam(param):
+
+    if param["Parameter"]["Type"] == "String" or param["Parameter"]["Type"] == "SecureString":
+        value = param["Parameter"]["Value"]
+        
+        if isJson(value):
+            value = json.loads(value)
+    
+    if param["Parameter"]["Type"] == "StringList":
+        value = param["Parameter"]["Value"].split(",")
+        
+    return value #Returned as either a string, list, or dict depending on data type
 
 
-def awsRunUlysses(event, context):
+# Retrive and format a parameter from Parameter Store
+def getParam(name):
+    param = retriveParam(name)
+    value = formatParam(param)
 
-    # Ulysses Ebooks
-    print("~Ulysses eBooks~")
-    JadeBots.postUlyssesEbooks()
+    return value
 
 
+# Retrive Twitter and Mastodon keys
+def retrieveKeys(account):
 
-def awsRunAll(event, context):
+    name = account+"Keys"
+    keys = getParam(name)
 
-    #event is the payload from EventBridge, context is something
-    print(event)
-    print(context)
+    twitterKeys = keys.get("Twitter")
+    mastodonKeys = keys.get("Mastodon")
 
-    #Genre Defining
-    print("~Genre Defining~")
-    JadeBots.postGenreDefining()
+    return twitterKeys, mastodonKeys
+    
 
-    #Mario Variants
-    print("\n~Super Mario Variants~")
-    JadeBots.postMarioVariants()
 
-    # Romantics Ebooks
-    print("\n~Romantics eBooks~")
-    JadeBots.postRomanticsEbooks()
+#-------------------------------------------------------------------------------
+# Main Handler
+#-------------------------------------------------------------------------------
 
-    # Ulysses Ebooks
-    print("\n~Ulysses eBooks~")
-    JadeBots.postUlyssesEbooks()
+def lambdaHandler(event, context):
+    # Import variables from Lambda event json
+    account = event.get("ACCOUNT") #get() returns None as the default value if the key isn't found
+    postTwitter = str2bool(event.get("POST_TWITTER")) 
+    postMastodon = str2bool(event.get("POST_MASTODON"))
+    postFreq = int(event.get("POST_FREQ"))
+
+    twitterKeys, mastodonKeys = retrieveKeys(account)
+
+    if account == "genreDefining":
+
+        altPostFreq = int(event.get("ALT_POST_FREQ"))
+        altGenreExtraFreq = int(event.get("ALT_GENRE_EXTRA_FREQ"))
+        altGenreGameFreq = int(event.get("ALT_GENRE_GAME_FREQ"))
+        verbose = str2bool(event.get("VERBOSE"))
+
+        print("~Genre Defining~")
+        JadeBots.postGenreDefining(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+
+
+    if account == "marioVariants":
+
+        extraPrefixPercent = int(event.get("EXTRA_PREFIX_PERCENT"))
+        suffixPercent = int(event.get("SUFFIX_PERCENT"))
+        verbose = str2bool(event.get("VERBOSE"))
+
+        print("~Super Mario Variants~")
+        JadeBots.postGenreDefining(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+
+
+    if account == "romanticsEbooks":
+
+        minLength = int(event.get("MIN_LENGTH"))
+        maxLength = int(event.get("MAX_LENGTH"))
+
+        print("~Romantics eBooks~")
+        JadeBots.postGenreDefining(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+
+
+    if account == "ulyseesEbooks":
+
+        minLength = int(event.get("MIN_LENGTH"))
+        maxLength = int(event.get("MAX_LENGTH"))
+
+        print("~Ulysses eBooks~")
+        JadeBots.postGenreDefining(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+
