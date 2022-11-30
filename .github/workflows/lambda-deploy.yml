@@ -7,9 +7,11 @@ on:
       - aws-lambda
     tags-ignore:
       - '*'
+  workflow_dispatch:
+
 
 jobs:
-  deploy_genre:
+  deploy_functions:
     name: Deploy functions to Lambda
     runs-on: ubuntu-latest
 
@@ -32,60 +34,20 @@ jobs:
         with:
           args: zip -qq -r ./bundle.zip ./
 
-      # Deploy the function for Genre Defining
-      - name: Deploy Genre Defining Function
+      # Deploy the function for JadeBots
+      - name: Deploy JadeBots Function
         uses: appleboy/lambda-action@master
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_region: ${{ secrets.AWS_REGION }}
-          function_name: jadeBots-genre-post
-          description: 'The function to post to Genre Defining'
-          runtime: python3.8
-          handler: lambda.awsRunGenre
+          function_name: jadeBots-post
+          description: 'The function to post with JadeBots'
+          runtime: python3.9
+          handler: lambda.lambdaHandler
           zip_file: bundle.zip
 
-      # Deploy the function for Mario Variants
-      - name: Deploy Mario Variants Function
-        uses: appleboy/lambda-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: jadeBots-mario-post
-          description: 'The function to post to Mario Variants'
-          runtime: python3.8
-          handler: lambda.awsRunMario
-          zip_file: bundle.zip
-
-      # Deploy the function for Romantics Ebooks
-      - name: Deploy Romantics Ebooks Function
-        uses: appleboy/lambda-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: jadeBots-romantics-post
-          description: 'The function to post to Romantics Ebooks'
-          runtime: python3.8
-          handler: lambda.awsRunRomantics
-          zip_file: bundle.zip
-
-      # Deploy the function for Ulysses Ebooks
-      - name: Deploy Ulysses Ebooks Function
-        uses: appleboy/lambda-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: ${{ secrets.AWS_REGION }}
-          function_name: jadeBots-ulysses-post
-          description: 'The function to post to Ulysses Ebooks'
-          runtime: python3.8
-          handler: lambda.awsRunUlysses
-          zip_file: bundle.zip
-
-
-  deploy_layer:
+  deploy_layers:
     name: Deploy Lambda Layers
     runs-on: ubuntu-latest
 
@@ -100,10 +62,10 @@ jobs:
         aws-region: ${{ secrets.AWS_REGION }}
 
     # Setup Python in the build environment
-    - name: Setup Python 3.8
+    - name: Setup Python 3.9
       uses: actions/setup-python@v1
       with:
-        python-version: 3.8
+        python-version: 3.9
 
     # Clone the project into the build environment
     - name: Clone Project
@@ -120,7 +82,7 @@ jobs:
         zip --quiet -r python-requirements.zip python
 
         # Upload the libraries to a Lambda Layer
-        aws lambda publish-layer-version --layer-name python-requirements --description 'The required Python modules' --zip-file fileb://python-requirements.zip --compatible-runtimes python3.6 python3.7 python3.8
+        aws lambda publish-layer-version --layer-name python-requirements --description 'The required Python modules' --zip-file fileb://python-requirements.zip --compatible-runtimes python3.6 python3.7 python3.8 python3.9
 
     # Clone tweetBot into the build environment
     - name: Download tweetBot
@@ -139,4 +101,18 @@ jobs:
         zip --quiet -r python-tweetBot.zip python
 
         # Upload tweetBot to a Lambda Layer
-        aws lambda publish-layer-version --layer-name python-tweetBot --description 'The Python module tweetBot' --zip-file fileb://python-tweetBot.zip --compatible-runtimes python3.6 python3.7 python3.8
+        aws lambda publish-layer-version --layer-name python-tweetBot --description 'The Python module tweetBot' --zip-file fileb://python-tweetBot.zip --compatible-runtimes python3.6 python3.7 python3.8 python3.9
+
+  update_lambda_layers:
+  	name: Update lambda layer versions
+    runs-on: ubuntu-latest
+    needs: [deploy_functions, deploy_layer]
+    steps:
+
+      - name: Update layers
+        uses: callummackenzie/latest-lambda-layer-action@v0.12
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: ${{ secrets.AWS_REGION }
+          function_name: jadeBots-post
