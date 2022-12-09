@@ -14,7 +14,7 @@ import os
 import json
 import urllib.request
 import logging
-import str2bool
+from str2bool import str2bool
 
 
 
