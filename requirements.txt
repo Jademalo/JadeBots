@@ -1,3 +1,4 @@
 tweepy
 mastodon.py
 python-dotenv
+str2bool
