@@ -81,7 +81,7 @@ def getVariable(event, name):
 def lambdaHandler(event, context):
 
     # Enable debug logs if variable set
-    if JadeBots.str2bool(getVariable(event, "DEBUG")):
+    if bool(getVariable(event, "DEBUG")):
         logging.basicConfig(level = logging.DEBUG)
     else:
         logging.basicConfig(level = logging.INFO)
