@@ -4,6 +4,7 @@
 #tweepy
 #mastodon.py
 #python-dotenv
+#str2bool
 
 #-------------------------------------------------------------------------------
 # Imports
@@ -13,6 +14,7 @@ import os
 import json
 import urllib.request
 import logging
+import str2bool
 
 
 
@@ -81,7 +83,7 @@ def getVariable(event, name):
 def lambdaHandler(event, context):
 
     # Enable debug logs if variable set
-    if bool(getVariable(event, "DEBUG")):
+    if str2bool(getVariable(event, "DEBUG")):
         logging.basicConfig(level = logging.DEBUG)
     else:
         logging.basicConfig(level = logging.INFO)
