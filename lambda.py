@@ -9,10 +9,10 @@
 # Imports
 #-------------------------------------------------------------------------------
 import JadeBots
-from JadeBots import str2bool
 import os
 import json
 import urllib.request
+import logging
 
 
 
@@ -30,49 +30,47 @@ def isJson(myjson):
 
 
 # Retrive a parameter from Parameter Store
-def retriveParam(name):
+def getParam(name, format=True):
 
-    aws_session_token = os.environ.get('AWS_SESSION_TOKEN')
-    req = urllib.request.Request('http://localhost:2773/systemsmanager/parameters/get?name='+name+'&withDecryption=true')
-    req.add_header('X-Aws-Parameters-Secrets-Token', aws_session_token)
-    param = json.loads(urllib.request.urlopen(req).read())
+    try:
+        aws_session_token = os.environ.get('AWS_SESSION_TOKEN')
+        req = urllib.request.Request('http://localhost:2773/systemsmanager/parameters/get?name='+name+'&withDecryption=true')
+        req.add_header('X-Aws-Parameters-Secrets-Token', aws_session_token)
+        param = json.loads(urllib.request.urlopen(req).read())
+    except:
+        return None
 
-    return param #Returned as a dict
+    # Returned as either a string, list, or dict depending on data type - String for regular params, list for csv params, dict for json params
+    if format:
+        if param["Parameter"]["Type"] == "String" or param["Parameter"]["Type"] == "SecureString":
+            param = param["Parameter"]["Value"]
+        
+            if isJson(param):
+                param = json.loads(param)
+    
+        elif param["Parameter"]["Type"] == "StringList":
+            param = param["Parameter"]["Value"].split(",")
+
+    return param
     
 
-# Format a parameter from Parameter Store
-def formatParam(param):
+# Return a variable from either the event object or environment variables
+def getVariable(event, name): 
 
-    if param["Parameter"]["Type"] == "String" or param["Parameter"]["Type"] == "SecureString":
-        value = param["Parameter"]["Value"]
-        
-        if isJson(value):
-            value = json.loads(value)
-    
-    if param["Parameter"]["Type"] == "StringList":
-        value = param["Parameter"]["Value"].split(",")
-        
-    return value #Returned as either a string, list, or dict depending on data type
+    # Check the event object
+    if event.get(name): #get() returns None as the default value if the key isn't found
+        return event.get(name)
 
+    # Check the Parameter Store
+    if getParam(name): #getParam() returns None if the parameter doesn't exist
+        return getParam(name)
 
-# Retrive and format a parameter from Parameter Store
-def getParam(name):
-    param = retriveParam(name)
-    value = formatParam(param)
+    # Check the Environment Variables
+    if os.getenv(name): #os.getenv() returns None as the default value if the environment variable isn't found
+        return os.getenv(name)
 
-    return value
-
-
-# Retrive Twitter and Mastodon keys
-def retrieveKeys(account):
-
-    name = account+"Keys"
-    keys = getParam(name)
-
-    twitterKeys = keys.get("Twitter")
-    mastodonKeys = keys.get("Mastodon")
-
-    return twitterKeys, mastodonKeys
+    # Return None if there's no variable passed
+    return None
     
 
 
@@ -81,49 +79,71 @@ def retrieveKeys(account):
 #-------------------------------------------------------------------------------
 
 def lambdaHandler(event, context):
-    # Import variables from Lambda event json
-    account = event.get("ACCOUNT") #get() returns None as the default value if the key isn't found
-    postTwitter = str2bool(event.get("POST_TWITTER")) 
-    postMastodon = str2bool(event.get("POST_MASTODON"))
-    postFreq = int(event.get("POST_FREQ"))
 
-    twitterKeys, mastodonKeys = retrieveKeys(account)
+    # Enable debug logs if variable set
+    if JadeBots.str2bool(getVariable(event, "DEBUG")):
+        logging.basicConfig(level = logging.DEBUG)
+    else:
+        logging.basicConfig(level = logging.INFO)
+
+    # Import account from Lambda event json
+    account = getVariable(event, "ACCOUNT")
+    if not account: 
+        raise Exception("No account specified")
+
+    # Import keys
+    keys = getParam(account+"Keys")
+
 
     if account == "genreDefining":
-
-        altPostFreq = int(event.get("ALT_POST_FREQ"))
-        altGenreExtraFreq = int(event.get("ALT_GENRE_EXTRA_FREQ"))
-        altGenreGameFreq = int(event.get("ALT_GENRE_GAME_FREQ"))
-        verbose = str2bool(event.get("VERBOSE"))
-
-        print("~Genre Defining~")
-        JadeBots.postGenreDefining(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, altPostFreq, altGenreExtraFreq, altGenreGameFreq, verbose)
+        logging.info("~Genre Defining~")
+        JadeBots.postGenreDefining(
+            postTwitter = getVariable(event, "POST_TWITTER"), 
+            twitterKeys = keys.get("Twitter"), 
+            postMastodon = getVariable(event, "POST_MASTODON"), 
+            mastodonKeys = keys.get("Mastodon"), 
+            postFreq = getVariable(event, "POST_FREQ"), 
+            altPostFreq = getVariable(event, "ALT_POST_FREQ"), 
+            altGenreExtraFreq = getVariable(event, "ALT_GENRE_EXTRA_FREQ"), 
+            altGenreGameFreq = getVariable(event, "ALT_GENRE_GAME_FREQ")
+        )
 
 
     if account == "marioVariants":
-
-        extraPrefixPercent = int(event.get("EXTRA_PREFIX_PERCENT"))
-        suffixPercent = int(event.get("SUFFIX_PERCENT"))
-        verbose = str2bool(event.get("VERBOSE"))
-
-        print("~Super Mario Variants~")
-        JadeBots.postMarioVariants(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, extraPrefixPercent, suffixPercent, verbose)
+        logging.info("~Super Mario Variants~")
+        JadeBots.postMarioVariants(
+            postTwitter = getVariable(event, "POST_TWITTER"), 
+            twitterKeys = keys.get("Twitter"), 
+            postMastodon = getVariable(event, "POST_MASTODON"), 
+            mastodonKeys = keys.get("Mastodon"), 
+            postFreq = getVariable(event, "POST_FREQ"),  
+            extraPrefixPercent = getVariable(event, "EXTRA_PREFIX_PERCENT"), 
+            suffixPercent = getVariable(event, "SUFFIX_PERCENT")
+        )
 
 
     if account == "romanticsEbooks":
-
-        minLength = int(event.get("MIN_LENGTH"))
-        maxLength = int(event.get("MAX_LENGTH"))
-
-        print("~Romantics eBooks~")
-        JadeBots.postRomanticsEbooks(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, minLength, maxLength)
+        logging.info("~Romantics eBooks~")
+        JadeBots.postRomanticsEbooks(
+            postTwitter = getVariable(event, "POST_TWITTER"), 
+            twitterKeys = keys.get("Twitter"), 
+            postMastodon = getVariable(event, "POST_MASTODON"), 
+            mastodonKeys = keys.get("Mastodon"),  
+            postFreq = getVariable(event, "POST_FREQ"),  
+            minLength = getVariable(event, "MIN_LENGTH"), 
+            maxLength = getVariable(event, "MAX_LENGTH")
+        )
 
 
     if account == "ulyssesEbooks":
-
-        minLength = int(event.get("MIN_LENGTH"))
-        maxLength = int(event.get("MAX_LENGTH"))
-
-        print("~Ulysses eBooks~")
-        JadeBots.postUlyssesEbooks(postTwitter, twitterKeys, postMastodon, mastodonKeys, postFreq, minLength, maxLength)
+        logging.info("~Ulysses eBooks~")
+        JadeBots.postUlyssesEbooks(
+            postTwitter = getVariable(event, "POST_TWITTER"), 
+            twitterKeys = keys.get("Twitter"), 
+            postMastodon = getVariable(event, "POST_MASTODON"), 
+            mastodonKeys = keys.get("Mastodon"), 
+            postFreq = getVariable(event, "POST_FREQ"),  
+            minLength = getVariable(event, "MIN_LENGTH"), 
+            maxLength = getVariable(event, "MAX_LENGTH")
+        )
 
