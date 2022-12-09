@@ -4,86 +4,77 @@
 import tweetBot
 import os
 import dotenv
+import logging
 
-# Quick little function to convert a text string to a boolean
-def str2bool(v):
-  return str(v).lower() in ("yes", "true", "t", "1")
+
+
+#-------------------------------------------------------------------------------
+# Functions
+#-------------------------------------------------------------------------------
+
+# Function to get a variable from the environment if it's empty
+def getVar(var, name):
+    if var is None:
+        return os.getenv(name)
+    else:
+        return var
 
 
 
 #-------------------------------------------------------------------------------
 # Genre Defining
 #-------------------------------------------------------------------------------
-def postGenreDefining(postTwitter=None, twitterKeys=None, postMastodon=None, mastodonKeys=None, postFreq=None, altPostFreq=None, altGenreExtraFreq=None, altGenreGameFreq=None, verbose=None):
+def postGenreDefining(postTwitter=None, twitterKeys=None, postMastodon=None, mastodonKeys=None, postFreq=None, altPostFreq=None, altGenreExtraFreq=None, altGenreGameFreq=None):
 
-    account = "genreDefining"
-    gameFile = "genre-defining/game.txt"
-    genreFile = "genre-defining/genre.txt"
-    genreExtraFile = "genre-defining/genreExtra.txt"
-
-    # Load from Environment Variables if variables aren't passed
-    dotenv.load_dotenv()
-    postTwitter = str2bool(os.getenv("POST_TWITTER")) if postTwitter is None else postTwitter #postTwitter should be set to the environment variable if it is equal to None, else it should be set to itself.
-    postMastodon = str2bool(os.getenv("POST_MASTODON")) if postMastodon is None else postMastodon
-    postFreq = int(os.getenv("POST_FREQ")) if postFreq is None else postFreq
-    altPostFreq = int(os.getenv("ALT_POST_FREQ")) if altPostFreq is None else altPostFreq
-    altGenreExtraFreq = int(os.getenv("ALT_GENRE_EXTRA_FREQ")) if altGenreExtraFreq is None else altGenreExtraFreq
-    altGenreGameFreq = int(os.getenv("ALT_GENRE_GAME_FREQ")) if altGenreGameFreq is None else altGenreGameFreq
-    verbose = str2bool(os.getenv("VERBOSE")) if verbose is None else verbose
+    dotenv.load_dotenv() # Does not override existing env variables
 
     # Generate the message
-    text, altGenreGameDebug, altGenreExtraDebug, gameText, genreText, altPostDebug = tweetBot.genreGen(gameFile, genreFile, genreExtraFile, altPostFreq, altGenreGameFreq, altGenreExtraFreq)
+    text = tweetBot.genreGen(
+        gameFile = "genre-defining/game.txt", 
+        genreFile = "genre-defining/genre.txt", 
+        genreExtraFile = "genre-defining/genreExtra.txt", 
+        altPostFreq = getVar(altPostFreq, "ALT_POST_FREQ"), 
+        altGenreGameFreq = getVar(altGenreGameFreq, "ALT_GENRE_GAME_FREQ"), 
+        altGenreExtraFreq = getVar(altGenreExtraFreq, "ALT_GENRE_EXTRA_FREQ")
+        )
 
-    # If the verbose variable is set to 1, then print extra spam
-    if verbose == True:
-        print("Alternate Game as Genre? -", altGenreGameDebug)
-        print("Alternate Extra Genre? -", altGenreExtraDebug)
-        print("gameText =", gameText)
-        print("genreText =", genreText)
-        print("Alternate format? -", altPostDebug)
-
-    # Print the final message
-    print(text)
     # Post the message
-    tweetBot.post(text, postFreq, postTwitter, twitterKeys, postMastodon, mastodonKeys)
+    tweetBot.post(
+        text = text, 
+        postFreq = getVar(postFreq, "POST_FREQ"), 
+        twitterPost = getVar(postTwitter, "POST_TWITTER"), 
+        twitterKeys = twitterKeys, 
+        mastodonPost = getVar(postMastodon, "POST_MASTODON"), 
+        mastodonKeys = mastodonKeys
+        )
 
 
 
 #-------------------------------------------------------------------------------
 # Super Mario Variants
 #-------------------------------------------------------------------------------
-def postMarioVariants(postTwitter=None, twitterKeys=None, postMastodon=None, mastodonKeys=None, postFreq=None, extraPrefixPercent=None, suffixPercent=None, verbose=None):
+def postMarioVariants(postTwitter=None, twitterKeys=None, postMastodon=None, mastodonKeys=None, postFreq=None, extraPrefixPercent=None, suffixPercent=None):
 
-    account = "marioVariants"
-    nameFile = "mario-variants/name.txt"
-    prefixFile = "mario-variants/prefix.txt"
-    suffixFile = "mario-variants/suffix.txt"
-
-    # Environment Variables
-    dotenv.load_dotenv()
-    postTwitter = str2bool(os.getenv("POST_TWITTER")) if postTwitter is None else postTwitter #postTwitter should be set to the environment variable if it is equal to None, else it should be set to itself.
-    postMastodon = str2bool(os.getenv("POST_MASTODON")) if postMastodon is None else postMastodon
-    postFreq = int(os.getenv("POST_FREQ")) if postFreq is None else postFreq
-    extraPrefixPercent = int(os.getenv("EXTRA_PREFIX_PERCENT")) if extraPrefixPercent is None else extraPrefixPercent
-    suffixPercent = int(os.getenv("SUFFIX_PERCENT")) if suffixPercent is None else suffixPercent
-    verbose = str2bool(os.getenv("VERBOSE")) if verbose is None else verbose
+    dotenv.load_dotenv() # Does not override existing env variables
 
     # Generate the message
-    text, nameText, prefixText, suffixText, prefixExtraText, prefixExtraDebug, suffixDebug = tweetBot.variantGen(nameFile, prefixFile, suffixFile, extraPrefixPercent, suffixPercent)
+    text = tweetBot.variantGen(
+        nameFile = "mario-variants/name.txt", 
+        prefixFile = "mario-variants/prefix.txt", 
+        suffixFile = "mario-variants/suffix.txt", 
+        extraPrefixPercent = getVar(extraPrefixPercent, "EXTRA_PREFIX_PERCENT"), 
+        suffixPercent = getVar(suffixPercent, "SUFFIX_PERCENT")
+        )
 
-    # If the verbose variable is set to 1, then print extra spam
-    if verbose == True:
-        print("Extra Prefix? -", prefixExtraDebug)
-        print("Suffix? -", suffixDebug)
-        print("nameText =", nameText)
-        print("prefixText =", prefixText)
-        print("prefixExtraText =", prefixExtraText)
-        print("suffixText =", suffixText)
-
-    # Print the final message
-    print(text)
     # Post the message
-    tweetBot.post(text, postFreq, postTwitter, twitterKeys, postMastodon, mastodonKeys)
+    tweetBot.post(
+        text = text, 
+        postFreq = getVar(postFreq, "POST_FREQ"), 
+        twitterPost = getVar(postTwitter, "POST_TWITTER"), 
+        twitterKeys = twitterKeys, 
+        mastodonPost = getVar(postMastodon, "POST_MASTODON"), 
+        mastodonKeys = mastodonKeys
+        )
 
 
 
@@ -92,24 +83,24 @@ def postMarioVariants(postTwitter=None, twitterKeys=None, postMastodon=None, mas
 #-------------------------------------------------------------------------------
 def postRomanticsEbooks(postTwitter=None, twitterKeys=None, postMastodon=None, mastodonKeys=None, postFreq=None, minLength=None, maxLength=None):
 
-    account = "romanticsEbooks"
-    mainFile = "romantics-ebooks/RomanticsText.txt"
-
-    # Environment Variables
-    dotenv.load_dotenv()
-    postTwitter = str2bool(os.getenv("POST_TWITTER")) if postTwitter is None else postTwitter #postTwitter should be set to the environment variable if it is equal to None, else it should be set to itself.
-    postMastodon = str2bool(os.getenv("POST_MASTODON")) if postMastodon is None else postMastodon
-    postFreq = int(os.getenv("POST_FREQ")) if postFreq is None else postFreq
-    minLength = int(os.getenv("MIN_LENGTH")) if minLength is None else minLength
-    maxLength = int(os.getenv("MAX_LENGTH")) if maxLength is None else maxLength
+    dotenv.load_dotenv() # Does not override existing env variables
 
     # Generate the message
-    text = tweetBot.ebooksGen(mainFile, maxLength, minLength)
+    text = tweetBot.ebooksGen(
+        file = "romantics-ebooks/RomanticsText.txt", 
+        minLength = getVar(minLength, "MIN_LENGTH"),
+        maxLength = getVar(maxLength, "MAX_LENGTH") 
+        )
 
-    # Print the final message
-    print(text)
     # Post the message
-    tweetBot.post(text, postFreq, postTwitter, twitterKeys, postMastodon, mastodonKeys)
+    tweetBot.post(
+        text = text, 
+        postFreq = getVar(postFreq, "POST_FREQ"), 
+        twitterPost = getVar(postTwitter, "POST_TWITTER"), 
+        twitterKeys = twitterKeys, 
+        mastodonPost = getVar(postMastodon, "POST_MASTODON"), 
+        mastodonKeys = mastodonKeys
+        )
 
 
 
@@ -118,21 +109,47 @@ def postRomanticsEbooks(postTwitter=None, twitterKeys=None, postMastodon=None, m
 #-------------------------------------------------------------------------------
 def postUlyssesEbooks(postTwitter=None, twitterKeys=None, postMastodon=None, mastodonKeys=None, postFreq=None, minLength=None, maxLength=None):
 
-    account = "ulyssesEbooks"
-    mainFile = "ulysses-ebooks/Ulysses.txt"
-
-    # Environment Variables
-    dotenv.load_dotenv()
-    postTwitter = str2bool(os.getenv("POST_TWITTER")) if postTwitter is None else postTwitter #postTwitter should be set to the environment variable if it is equal to None, else it should be set to itself.
-    postMastodon = str2bool(os.getenv("POST_MASTODON")) if postMastodon is None else postMastodon
-    postFreq = int(os.getenv("POST_FREQ")) if postFreq is None else postFreq
-    minLength = int(os.getenv("MIN_LENGTH")) if minLength is None else minLength
-    maxLength = int(os.getenv("MAX_LENGTH")) if maxLength is None else maxLength
+    dotenv.load_dotenv() # Does not override existing env variables
 
     # Generate the message
-    text = tweetBot.ebooksGen(mainFile, maxLength, minLength)
+    text = tweetBot.ebooksGen(
+        file = "ulysses-ebooks/Ulysses.txt", 
+        minLength = getVar(minLength, "MIN_LENGTH"),
+        maxLength = getVar(maxLength, "MAX_LENGTH") 
+        )
 
-    # Print the final message
-    print(text)
     # Post the message
-    tweetBot.post(text, postFreq, postTwitter, twitterKeys, postMastodon, mastodonKeys)
+    tweetBot.post(
+        text = text, 
+        postFreq = getVar(postFreq, "POST_FREQ"), 
+        twitterPost = getVar(postTwitter, "POST_TWITTER"), 
+        twitterKeys = twitterKeys, 
+        mastodonPost = getVar(postMastodon, "POST_MASTODON"), 
+        mastodonKeys = mastodonKeys
+        )
+
+
+
+#-------------------------------------------------------------------------------
+# Main Function
+#-------------------------------------------------------------------------------
+
+# Run the four bots if this file is run directly
+if __name__ == "__main__":
+
+    logging.basicConfig(level = logging.DEBUG)
+
+    logging.info("~Genre Defining~")
+    postGenreDefining(postTwitter=False, postMastodon=False)
+    print()
+
+    logging.info("~Super Mario Variants~")
+    postMarioVariants(postTwitter=False, postMastodon=False)
+    print()
+
+    logging.info("~Romantics eBooks~")
+    postRomanticsEbooks(postTwitter=False, postMastodon=False)
+    print()
+
+    logging.info("~Ulysses eBooks~")
+    postUlyssesEbooks(postTwitter=False, postMastodon=False)
