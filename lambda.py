@@ -82,11 +82,12 @@ def getVariable(event, name):
 
 def lambdaHandler(event, context):
 
-    # Enable debug logs if variable set
-    if str2bool(getVariable(event, "DEBUG")):
-        logging.basicConfig(level = logging.DEBUG)
-    else:
-        logging.basicConfig(level = logging.INFO)
+    # Enable debug logs if variable set. getLogger is needed since lambda already sets up a handler
+    if logging.getLogger().hasHandlers():
+        if str2bool(getVariable(event, "DEBUG")):
+            logging.getLogger().setLevel(logging.DEBUG)
+        else:
+            logging.getLogger().setLevel(logging.INFO)
 
     # Import account from Lambda event json
     account = getVariable(event, "ACCOUNT")
