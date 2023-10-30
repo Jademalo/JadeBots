@@ -12,3 +12,10 @@ Cat
 Tanooki
 Ice
 Boomerang
+Elephant
+Bubble
+Drill
+Hoppycat
+Balloon
+Goomba
+Spike Ball

@@ -48,3 +48,5 @@ Diddy Kong
 Donkey Kong
 Funky Kong
 Daisy
+Poplin
+Prince Florian
